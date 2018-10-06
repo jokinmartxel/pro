@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
-	<title>addQuestion</title>
+	<title>addQuestion 5</title>
 
 	
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
@@ -38,6 +38,26 @@
 					
                 });
 			
+				
+				function irudiaBistaratu(input) {
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+						reader.readAsDataURL(input.files[0]);
+						reader.onload = function (e) {
+							$('#galdetegia + img').remove();
+							$('#galdetegia').after('<img src="'+e.target.result+'"/>');
+							}
+					}
+				}
+	
+				$("#irudia").change(function () {
+					irudiaBistaratu(this);
+				});
+
+				$("#reset").click(function(){
+					$('#galdetegia + img').remove();
+				});
+			
 			});
 			
 	</script>
@@ -61,8 +81,8 @@
 					<option value="4" >4</option>
 					<option value="5" >5</option>
 				</select><br>
-				Gaia(*)<input id="gaia" name="gaia" type="text" size="25" required /><br><br>
-				
+				Gaia(*)<input id="gaia" name="gaia" type="text" size="25" required /><br>
+				Irudia<input id="irudia" name="irudia" type="file" accept="image/png, image/jpg, image/jpeg" /><br><br>
 				<input name="submit" type="submit" id="submit" value="Submit"/>
 				<input name="reset" type="reset" id="reset" value="Reset"/>
 </form><br>
