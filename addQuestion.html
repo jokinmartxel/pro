@@ -8,52 +8,64 @@
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
     <script>
             $(document).ready(function(){
-			
-            function epostabai(eposta){
-				if (eposta == ""){
-					alert("Eposta beteta egon behar du");
-					return false;
-				}
-				var epostaondo = new RegExp("[a-zA-Z]+[0-9]{3}\@ikasle\.ehu\.eus" );
-				return epostaondo.test(eposta);
-					
-			}	
+				//Eposta bermatzeko
+				function epostabai(eposta){
+					if (eposta == ""){
+						alert("Eposta beteta egon behar du");
+						return false;
+					}
+					var epostaondo = new RegExp("[a-zA-Z]+[0-9]{3}\@ikasle\.ehu\.eus" );
+					return epostaondo.test(eposta);
+				}	
 				$("#galdetegia").submit(function(){
 					//eposta
 					if (epostabai($("#eposta").val()) == false) {
 						alert("Eposta letrak###@ikasle.ehu.eus izan behar du");
 						return false;
 					}
+					
 					//galdera
-					if ($("#galdera").val() == "") {
+					var galdera = $("#galdera").val().trim();
+					galdera = galdera.replace(/\s+ /gi, " ");
+					if (galdera == "") {
 						alert("Galdera beteta egon behar du");
 						return false;
 					}
+					if (galdera.length <= 10){
+						alert("Galderak 10 karaktere baino gehiago izan behar ditu");
+						return false;
+					}
+					
 					//Erantzun zuzena
 					if ($("#zuzena").val() == "") {
 						alert("Erantzun zuzena beteta egon behar du");
 						return false;
 					}
+					
 					//Erantzun okerra1
 					if ($("#okerra1").val() == "") {
 						alert("Erantzun okerra1 beteta egon behar du");
 						return false;
 					}
+					
 					//Erantzun okerra2
 					if ($("#okerra2").val() == "") {
 						alert("Erantzun okerra2 beteta egon behar du");
 						return false;
 					}
+					
 					//Erantzun okerra3
 					if ($("#okerra3").val() == "") {
 						alert("Erantzun okerra3 beteta egon behar du");
 						return false;
 					}
+					
 					//Zailtasuna
 					if ($("#zailtasuna").val() == "-") {
 						alert("Zailtasuna 1-5 egon behar du");
 						return false;
 					}
+					
                     //Erantzun okerra3
 					if ($("#gaia").val() == "") {
 						alert("Gaia beteta egon behar du");
@@ -69,9 +81,9 @@
   <body>
   
   
-<form id="galdetegia" method="post">
+<form id="galdetegia" method="post" action="php/proba.php">
 				Eposta(*)<input id="eposta" name="eposta" type="text" size="25"/><br>
-				Galdera(*)<input id="galdera" name="galdera" type="text" size="25"/><br>
+				Galdera(*)<input id="galdera" name="galdera" type="text" size="50"/><br>
 				Erantzun zuzena(*)<input id="zuzena" name="zuzena" type="text" size="25"/><br>
 				Erantzun okerra 1(*)<input id="okerra1" name="okerra1" type="text" size="25"/><br>
 				Erantzun okerra 2(*)<input id="okerra2" name="okerra2" type="text" size="25"/><br>
