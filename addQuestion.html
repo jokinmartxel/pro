@@ -3,7 +3,20 @@
   <head>
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
 	<title>addQuestion 4</title>
-
+	    <link rel='stylesheet' type='text/css' href='styles/style.css' />
+	<link rel='stylesheet' 
+		   type='text/css' 
+		   media='only screen and (min-width: 530px) and (min-device-width: 481px)'
+		   href='styles/wide.css' />
+	<link rel='stylesheet' 
+		   type='text/css' 
+		   media='only screen and (max-width: 480px)'
+		   href='styles/smartphone.css' />
+	
+	<style type="text/css">
+			fieldset {padding: 10px;}
+			body {margin: 10px;}
+	</style>
 	
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
     <script>
@@ -82,12 +95,13 @@
   
   
 <form id="galdetegia" method="post" action="php/proba.php">
-				Eposta(*)<input id="eposta" name="eposta" type="text" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus /><br>
+	<fieldset>
+				Eposta(*)<input id="eposta" name="eposta" type="text" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus /><br><br>
 				Galdera(*)<input id="galdera" name="galdera" type="text" size="50"/><br>
 				Erantzun zuzena(*)<input id="zuzena" name="zuzena" type="text" size="25"/><br>
 				Erantzun okerra 1(*)<input id="okerra1" name="okerra1" type="text" size="25"/><br>
 				Erantzun okerra 2(*)<input id="okerra2" name="okerra2" type="text" size="25"/><br>
-				Erantzun okerra 3(*)<input id="okerra3" name="okerra3" type="text" size="25"/><br>
+				Erantzun okerra 3(*)<input id="okerra3" name="okerra3" type="text" size="25"/><br><br>
 				
 				Zailtasuna(*)<select id="zailtasuna" name="zailtasuna">
 					<option value="-" >-</option>
@@ -102,6 +116,7 @@
 				
 				<input name="submit" type="submit" id="submit" value="Submit"/>
 				<input name="reset" type="reset" id="reset" value="Reset"/>
+	</fieldset>
 </form><br>
 <a href="layout.html">HOME</a>
 </body>
