@@ -49,8 +49,8 @@
 						var reader = new FileReader();
 						reader.readAsDataURL(input.files[0]);
 						reader.onload = function (e) {
-							$('#galdetegia + img').remove();
-							$('#galdetegia').after('<img src="'+e.target.result+'"/>');
+							$('#gehiIrudi').remove();
+							$('#galdetegia').after('<img id ="gehiIrudi" style="margin: 10px" src="'+e.target.result+'"/>');
 							}
 					}
 				}
@@ -60,7 +60,7 @@
 				});
 
 				$("#reset").click(function(){
-					$('#galdetegia + img').remove();
+					$('#gehiIrudi').remove();
 				});
 			
 			});
@@ -69,9 +69,9 @@
   </head>
   <body>
   
-  
-<form id="galdetegia" method="post" action="php/proba.php">
-	<fieldset>
+<fieldset>
+	<form id="galdetegia" method="post" action="php/proba.php">
+	
 		
 				Eposta(*)<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]+[0-9]{3}@ikasle.ehu.eus" title="proba000@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required /><br><br>
 				Galdera(*)<input id="galdera" name="galdera" type="text" size="50" required /><br>
@@ -91,8 +91,8 @@
 				Irudia<input id="irudia" name="irudia" type="file" accept="image/png, image/jpg, image/jpeg" /><br><br>
 				<input name="submit" type="submit" id="submit" value="Submit"/>
 				<input name="reset" type="reset" id="reset" value="Reset"/>
-	</fieldset>
-</form><br>
+	</form>
+</fieldset>
 <a href="layout.html">HOME</a>
 </body>
 </html>
