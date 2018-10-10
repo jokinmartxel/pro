@@ -33,14 +33,7 @@
 						alert("Galderak 10 karaktere baino gehiago izan behar ditu");
 						return false;
 					}
-					
-					
-					//Zailtasuna
-					<!-- if ($("#zailtasuna").val() == "-") { -->
-						<!-- alert("Zailtasuna 1-5 egon behar du"); -->
-						<!-- return false; -->
-					<!-- } -->
-					
+										
                 });
 			
 				
@@ -80,13 +73,7 @@
 				Erantzun okerra 2(*)<input id="okerra2" name="okerra2" type="text" size="25" required /><br>
 				Erantzun okerra 3(*)<input id="okerra3" name="okerra3" type="text" size="25" required /><br><br>
 				
-				Zailtasuna(*)<select id="zailtasuna" name="zailtasuna" required>
-					<option value="1" >1</option>
-					<option value="2" >2</option>
-					<option value="3" >3</option>
-					<option value="4" >4</option>
-					<option value="5" >5</option>
-				</select><br>
+				Zailtasuna(*)<input id="zailtasuna" name="zailtasuna" type="number" size="25" min="1" max="5" placeholder="1-5" required><br>
 				Gaia(*)<input id="gaia" name="gaia" type="text" size="25" required /><br>
 				Irudia<input id="irudia" name="irudia" type="file" accept="image/png, image/jpg, image/jpeg" /><br><br>
 				<input name="submit" type="submit" id="submit" value="Submit"/>

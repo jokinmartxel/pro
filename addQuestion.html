@@ -29,7 +29,8 @@
 					}
 					var epostaondo = new RegExp("[a-zA-Z]+[0-9]{3}\@ikasle\.ehu\.eus" );
 					return epostaondo.test(eposta);
-				}	
+				}
+				
 				$("#galdetegia").submit(function(){
 					//eposta
 					if (epostabai($("#eposta").val()) == false) {
@@ -74,9 +75,19 @@
 					}
 					
 					//Zailtasuna
-					if ($("#zailtasuna").val() == "-") {
-						alert("Zailtasuna 1-5 egon behar du");
+					if ($("#zailtasuna").val() == "") {
+						alert("Zailtasuna beteta egon behar du");
 						return false;
+					}else{
+						//alert("else");
+						if (!/^([0-9])*$/.test($("#zailtasuna").val())) {
+							alert("Zailtasuna zenbaki bat izan behar du");
+							return false;
+						}
+						if (parseInt($("#zailtasuna").val()) < 1 || parseInt($("#zailtasuna").val()) > 5){
+							alert("Zailtasuna 1-5 bitartean egon behar du");
+							return false;
+						}
 					}
 					
                     //Gaia
@@ -103,14 +114,7 @@
 				Erantzun okerra 2(*)<input id="okerra2" name="okerra2" type="text" size="25"/><br>
 				Erantzun okerra 3(*)<input id="okerra3" name="okerra3" type="text" size="25"/><br><br>
 				
-				Zailtasuna(*)<select id="zailtasuna" name="zailtasuna">
-					<option value="-" >-</option>
-					<option value="1" >1</option>
-					<option value="2" >2</option>
-					<option value="3" >3</option>
-					<option value="4" >4</option>
-					<option value="5" >5</option>
-				</select><br>
+				Zailtasuna(*)<input id="zailtasuna" name="zailtasuna" type="text" size="25" placeholder="1-5"><br>
 				Gaia(*)<input id="gaia" name="gaia" type="text" size="25"/><br>
 				Irudia: <br><br>
 				
