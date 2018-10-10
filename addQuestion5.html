@@ -43,7 +43,7 @@
 						reader.readAsDataURL(input.files[0]);
 						reader.onload = function (e) {
 							$('#gehiIrudi').remove();
-							$('#galdetegia').after('<img id ="gehiIrudi" style="margin: 10px" src="'+e.target.result+'"/>');
+							$('#galdetegia').append('<img id ="gehiIrudi" style="margin: 10px" src="'+e.target.result+'"/>');
 							}
 					}
 				}
@@ -54,7 +54,7 @@
 
 				$("#reset").click(function(){
 					$('#gehiIrudi').remove();
-				});
+				});		
 			
 			});
 			
@@ -77,7 +77,7 @@
 				Gaia(*)<input id="gaia" name="gaia" type="text" size="25" required /><br>
 				Irudia<input id="irudia" name="irudia" type="file" accept="image/png, image/jpg, image/jpeg" /><br><br>
 				<input name="submit" type="submit" id="submit" value="Submit"/>
-				<input name="reset" type="reset" id="reset" value="Reset"/>
+				<input name="reset" type="reset" id="reset" value="Reset"/><br>
 	</form>
 </fieldset>
 <a href="layout.html">HOME</a>
