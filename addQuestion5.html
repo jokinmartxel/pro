@@ -29,8 +29,8 @@
 					var galdera = $("#galdera").val().trim();
 					galdera = galdera.replace(/\s+ /gi, " ");
 
-					if (galdera.length <= 10){
-						alert("Galderak 10 karaktere baino gehiago izan behar ditu");
+					if (galdera.length < 10){
+						alert("Galderak 9 karaktere baino gehiago izan behar ditu");
 						return false;
 					}
 										
@@ -66,14 +66,14 @@
 	<form id="galdetegia" method="post" action="php/addQuestion.php">
 	
 		
-				Eposta(*)<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]+[0-9]{3}@ikasle.ehu.eus" title="proba000@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required /><br><br>
+				Eposta(*)<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]{3,}[0-9]{3}@ikasle.ehu.eus" title="pro000@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required /><br><br>
 				Galdera(*)<input id="galdera" name="galdera" type="text" size="50" required /><br>
 				Erantzun zuzena(*)<input id="zuzena" name="zuzena" type="text" size="25" required /><br>
 				Erantzun okerra 1(*)<input id="okerra1" name="okerra1" type="text" size="25" required /><br>
 				Erantzun okerra 2(*)<input id="okerra2" name="okerra2" type="text" size="25" required /><br>
 				Erantzun okerra 3(*)<input id="okerra3" name="okerra3" type="text" size="25" required /><br><br>
 				
-				Zailtasuna(*)<input id="zailtasuna" name="zailtasuna" type="number" size="25" min="1" max="5" placeholder="1-5" required><br>
+				Zailtasuna(*)<input id="zailtasuna" name="zailtasuna" type="number" size="25" min="0" max="5" placeholder="0-5" required><br>
 				Gaia(*)<input id="gaia" name="gaia" type="text" size="25" required /><br>
 				Irudia<input id="irudia" name="irudia" type="file" accept="image/png, image/jpg, image/jpeg" /><br><br>
 				<input name="submit" type="submit" id="submit" value="Submit"/>

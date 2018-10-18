@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (!balidatuBeharrez($eposta)){
 		$erroreak[]= "Eposta beharrezko balio bat da"; 
 	}
-	if (!preg_match('/[a-zA-Z]+[0-9]{3}\@ikasle\.ehu\.eus/', $eposta)){
-		$erroreak[]= "Eposta proba000@ikasle.ehu.eus bezalakoa izan behar du"; 
+	if (!preg_match('/[a-zA-Z]{3,}[0-9]{3}\@ikasle\.ehu\.eus/', $eposta)){
+		$erroreak[]= "Eposta pro000@ikasle.ehu.eus bezalakoa izan behar du"; 
 	}
 	
 	//galdera balidatu
@@ -40,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (!balidatuBeharrez($galdera)){
 		$erroreak[]= "Galdera beharrezko balio bat da"; 
 	}
-	if (strlen($galdera) <= 10){
-		$erroreak[]= "Galdera 10 karaktere baino gehiago izan behar ditu"; 
+	if (strlen($galdera) < 10){
+		$erroreak[]= "Galdera 9 karaktere baino gehiago izan behar ditu"; 
 	}
 	
 	//zuzena
@@ -70,17 +70,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	$opciones = array(
     'options' => array(
-        'default' => 3, // valor a retornar si el filtro falla
+        //'default' => 3, // valor a retornar si el filtro falla
         // más opciones aquí
-        'min_range' => 1,
-		'max_range' => 5
+        'min_range' => 0,
+		'max_range' => 5,
+		'flags' => FILTER_NULL_ON_FAILURE
     ),
-    'flags' => FILTER_FLAG_ALLOW_OCTAL,
+    //'flags' => FILTER_FLAG_ALLOW_OCTAL,
 );
 	
-	if (filter_var($zailtasuna, FILTER_VALIDATE_INT, $opciones) == FALSE){
-		$erroreak[]= "Zailtasuna 1-5 artean egon behar du"; 
-	}
+	//if (!(filter_var($zailtasuna, FILTER_VALIDATE_INT) === 0) || filter_var($zailtasuna, FILTER_VALIDATE_INT, $opciones) == FALSE){
+	//	$erroreak[]= "Zailtasuna 0-5 artean egon behar du"; 
+	//}
 	
 	//gaia
 	if (!balidatuBeharrez($gaia)){

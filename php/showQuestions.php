@@ -1,7 +1,7 @@
 <?php 
 
-$id= $_GET['id'];
-$zenb=0;
+//$id= $_GET['id'];
+//$zenb=0;
 include "dbConfig.php";
 global $niremysqli;
 $sql = "SELECT * FROM questions";
