@@ -122,7 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 
 	//lo comvertimos en binario antes de guardarlo
-	$irudia= addslashes (file_get_contents(Normalizer::normalize($ruta_fichero_origen, Normalizer::FORM_D))); //pasa \ -> /
+	//$irudia= addslashes (file_get_contents(Normalizer::normalize($ruta_fichero_origen, Normalizer::FORM_D))); //pasa \ -> /
+	$irudia = null;
 	//file_get_contents("ehu.jpg");
 	
 	$sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_POST[eposta]' , '$_POST[galdera]' , '$_POST[zuzena]' , '$_POST[okerra1]' , '$_POST[okerra2]' , '$_POST[okerra3]' , '$_POST[zailtasuna]' , '$_POST[gaia]' , '$irudia')";
