@@ -103,11 +103,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$path = $_FILES['irudia']['tmp_name'];
 	$path_berria = '../images/galdIrudi/' . $_FILES['irudia']['name'];
 	if ( in_array($_FILES['irudia']['type'], $extentsioak) ) {
-		echo 'Irudia da\n';
+		echo 'Irudia da';
+		echo '</br>';
 		if ( $_FILES['irudia']['size']< $max_tamaina ) {
-			echo '1 MB baino txikiagoa\n';
+			echo '1 MB baino txikiagoa';
+			echo '</br>';
 			if( move_uploaded_file ( $path, $path_berria ) ) {
-				echo 'Irudia zuzen gorde da\n';
+				echo 'Irudia zuzen gorde da';
+				echo '</br>';
 			}
 		}
 	}
