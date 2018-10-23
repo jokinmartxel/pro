@@ -27,15 +27,7 @@ $gaia = isset($_POST['gaia']) ? $_POST['gaia'] : null;
 $extentsioak = array(0=>'image/jpg',1=>'image/jpeg',2=>'image/png');
 $max_tamaina = 1024 * 1024 * 8;
 
-//$irudia = isset($_FILES['irudia']) ? $_FILES['irudia'] : null;
-
 $erroreak = array();
-
-echo $_FILES['irudia']['name'];
-echo $_FILES['irudia']['tmp_name'];
-echo $_FILES['irudia']['type'];
-echo $_FILES['irudia']['size'];
-echo $_FILES['irudia']['error'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//eposta balidatu
@@ -107,26 +99,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo $erroreak[$kont]."<br/>";
     }else{
 	
+	$path = '../images/' . $_FILES['irudia']['name'];
 	
-	$ruta_indexphp = dirname(realpath(__FILE__));
-	$ruta_fichero_origen = $_FILES['irudia']['tmp_name'];
-	$ruta_nuevo_destino = '../images/galdIrudi/' . $_FILES['irudia']['name'];
-	if ( in_array($_FILES['irudia']['type'], $extentsioak) ) {
-		echo 'Es una imagen';
-		if ( $_FILES['irudia']['size']< $max_tamaina ) {
-			echo 'Pesa menos de 1 MB';
-			if( move_uploaded_file ( $ruta_fichero_origen, $ruta_nuevo_destino ) ) {
-				echo 'Fichero guardado con éxito';
-			}
-		}
-	}
-
-	//lo comvertimos en binario antes de guardarlo
-	//$irudia= addslashes (file_get_contents(Normalizer::normalize($ruta_fichero_origen, Normalizer::FORM_D))); //pasa \ -> /
-	$irudia = null;
-	//file_get_contents("ehu.jpg");
-	
-	$sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_POST[eposta]' , '$_POST[galdera]' , '$_POST[zuzena]' , '$_POST[okerra1]' , '$_POST[okerra2]' , '$_POST[okerra3]' , '$_POST[zailtasuna]' , '$_POST[gaia]' , '$irudia')";
+	$sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_POST[eposta]' , '$_POST[galdera]' , '$_POST[zuzena]' , '$_POST[okerra1]' , '$_POST[okerra2]' , '$_POST[okerra3]' , '$_POST[zailtasuna]' , '$_POST[gaia]' , '$path')";
 	$ema= mysqli_query($niremysqli, $sql);
 
 	if(!$ema){
@@ -135,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	else{
 		echo('DATUAK ONDO GORDE DIRA</br></br>');
-		echo ('<a href="showQuestions.php">Datubaseko datuak ikusteko klikatu hemen</a></br></br>');	
+		echo ('<a href="showQuestionswithImages.php">Datubaseko datuak ikusteko klikatu hemen</a></br></br>');	
 	}
 	}
 }
