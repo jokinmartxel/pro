@@ -99,9 +99,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo $erroreak[$kont]."<br/>";
     }else{
 	
-	$path = '../images/' . $_FILES['irudia']['name'];
+	//$path = '../images/' . $_FILES['irudia']['name'];
+	$path = $_FILES['irudia']['tmp_name'];
+	$path_berria = '../images/galdIrudi/' . $_FILES['irudia']['name'];
+	if ( in_array($_FILES['irudia']['type'], $extentsioak) ) {
+		echo 'Irudia da\n';
+		if ( $_FILES['irudia']['size']< $max_tamaina ) {
+			echo '1 MB baino txikiagoa\n';
+			if( move_uploaded_file ( $path, $path_berria ) ) {
+				echo 'Irudia zuzen gorde da\n';
+			}
+		}
+	}
 	
-	$sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_POST[eposta]' , '$_POST[galdera]' , '$_POST[zuzena]' , '$_POST[okerra1]' , '$_POST[okerra2]' , '$_POST[okerra3]' , '$_POST[zailtasuna]' , '$_POST[gaia]' , '$path')";
+	$sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_POST[eposta]' , '$_POST[galdera]' , '$_POST[zuzena]' , '$_POST[okerra1]' , '$_POST[okerra2]' , '$_POST[okerra3]' , '$_POST[zailtasuna]' , '$_POST[gaia]' , '$path_berria')";
 	$ema= mysqli_query($niremysqli, $sql);
 
 	if(!$ema){
