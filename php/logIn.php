@@ -16,15 +16,15 @@
   <body>
   <div id='page-wrap'>
 	<header class='main' id='h1'>
-      <span class="right"><a href="logIn.php">LogIn</a> </span>
+      <!-- <span class="right"><a href="logIn.php">LogIn</a> </span> -->
 	  <span class="right"><a href="signUp.php">Sign Up</a> </span>
-      <span class="right" style="display:none;"><a href="/logout">LogOut</a> </span>
-	<h2>Quiz: crazy questions</h2>
+      <!-- <span class="right" style="display:none;"><a href="/logout">LogOut</a> </span> -->
+	<h2>Login</h2>
     </header>
 	<nav class='main' id='n1' role='navigation'>
 		<span><a href='../layout.php'>Home</a></span>
 		<span><a href='../quizzes'>Quizzes</a></span>
-		<span><a href='../credits.html'>Credits</a></span>
+		<span><a href='../credits.php'>Credits</a></span>
 		<!-- <span><a href='addQuestion.html'>Galdera gehitu 4</a></span> -->
 		<!--<span><a href='addQuestion5.html'>Galdera gehitu 5</a></span> -->
 	</nav>
@@ -68,7 +68,7 @@ if (isset ($_POST['eposta'])){
 			if ($rows_cnt == 1) {
 				$rows_cnt = 0;
 				echo "<script> alert('Acces granted')</script>";
-				$var = 'location: ../layout.php?op=logeatua&op1=kaixo';
+				$var = 'location: ../layout.php?op=logeatua&eposta=' . $usr_mail;
 				header ($var);
 				
 			}

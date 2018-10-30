@@ -23,11 +23,11 @@
 	<h2>Quiz: crazy questions</h2>
     </header>
 	<nav class='main' id='n1' role='navigation'>
-		<span><a href='layout.php'>Home</a></span>
+		<span><a href='layout.php' id="layout">Home</a></span>
 		<span><a href='/quizzes'>Quizzes</a></span>
-		<span><a href='credits.html'>Credits</a></span>
-		<span><a href='addQuestion5.html' style="display:none;" id="addQ">Galdera gehitu</a></span> 
-		<span><a href='showQuestionswithImages.php' style="display:none;" id="showQ">Galderak ikusi</a></span>
+		<span><a href='credits.php'>Credits</a></span>
+		<span><a href='addQuestion5.php' style="display:none;" id="addQ">Galdera gehitu</a></span> 
+		<span><a href='php/showQuestionswithImages.php' style="display:none;" id="showQ">Galderak ikusi</a></span>
 	</nav>
     <section class="main" id="s1">
     
@@ -54,11 +54,30 @@ if (isset ($_GET['op'])){
 		
 		echo "<script> $('#addQ').css('display', 'block');</script>";
 		echo "<script> $('#showQ').css('display', 'block');</script>";
+		
+		$eposta = strval($_GET['eposta']);
+
+		$addq = "addQuestion5.php?op=logeatua&eposta=" . $eposta;
+		$addq = strval($addq) ;
+		echo "<script> $('#addQ').attr('href', '". $addq . "')</script>";
+		
+		$lay = "layout.php?op=logeatua&eposta=" . $eposta;
+		$lay = strval($lay);
+		echo "<script> $('#layout').attr('href', '". $lay . "')</script>";
+		
+		$showq = "php/showQuestionswithImages.php?op=logeatua&eposta=" . $eposta;
+		$showq = strval($showq);
+		echo "<script> $('#showQ').attr('href', '". $showq . "')</script>";
+		
+		
+		//echo "<script> $eposta = strval($_GET['eposta']); </script>";
 		//echo "<script> $( '.main' ).append( '<span id='addQ'> </span>' );</script>";
 		 
 		//echo "<script> $('.main').append('<span><a href='showQuestionWithImage.php'>Galdera ikusi</a></span>');</script>";
 		//echo "<script> $('#n1').append('<span class='label label-important'>' + 'kaixo' + '</span>);</script>";
 		//echo "<script> $('#n1').append('<span><a href='showQuestionWithImage.php'>Galdera ikusi</a></span>');</script>";
+	}else{
+		header ('location: layout.php?op=ezlogeatua' );
 	}
 }
 ?>

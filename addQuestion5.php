@@ -80,10 +80,37 @@
 				<input name="reset" type="reset" id="reset" value="Reset"/><br>
 	</form>
 </fieldset>
-<a href="layout.php">HOME</a>
+<a href="layout.php" id="home">HOME</a>
 </body>
 </html>
 
 <?php 
-
+if (isset ($_GET['op'])){
+	//logeatua dago
+	if ($_GET['op'] == 'logeatua'){
+		//echo "<script> $('#login').css('display', 'none');</script>";
+		//echo "<script> $('#signup').css('display', 'none');</script>";
+		//echo "<script> $('#logout').css('display', 'block');</script>";
+		//echo "<script> $('#display').replaceWith('Ongi etorria! Logeatuta zaude.');</script>";
+		
+		//echo "<script> $('#addQ').css('display', 'block');</script>";
+		//echo "<script> $('#showQ').css('display', 'block');</script>";
+		//echo "<script> $( '.main' ).append( '<span id='addQ'> </span>' );</script>";
+		 
+		//echo "<script> $('.main').append('<span><a href='showQuestionWithImage.php'>Galdera ikusi</a></span>');</script>";
+		//echo "<script> $('#n1').append('<span class='label label-important'>' + 'kaixo' + '</span>);</script>";
+		//echo "<script> $('#n1').append('<span><a href='showQuestionWithImage.php'>Galdera ikusi</a></span>');</script>";
+		$eposta = $_GET['eposta'];
+		$eposta = strval($eposta);
+		echo "<script> $('#eposta').attr('value', '" . $eposta . "');</script>";
+		
+		$lay = "layout.php?op=logeatua&eposta=" . $eposta;
+		$lay = strval($lay);
+		echo "<script> $('#home').attr('href', '". $lay . "')</script>";
+		
+		//echo $eposta;
+		//echo "<script> $('#eposta').attr('value', '" . "kaixo" . "');</script>";
+		//echo "<script> $('#eposta').attr('value', $emaila);</script>";
+	}
+}
 ?>

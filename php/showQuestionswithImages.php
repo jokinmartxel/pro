@@ -17,7 +17,19 @@ if (mysqli_num_rows($res) > 0) {
 else{ echo "Ez dago lerrorik";}
 if (!$res){	echo("Errorea query-a gauzatzerakoan: ". mysqli_error($niremysqli));}
 
-echo('<a href="../layout.html"> ITZULI HASIERAKO ORRIRA </a></br></br>');
+if (isset ($_GET['op'])){
+	//logeatua dago
+	if ($_GET['op'] == 'logeatua'){
+		//header ('location: ../layout.php' );
+		$eposta = strval($_GET['eposta']);
+		
+		$lay = "layout.php?op=logeatua&eposta=" . $eposta;
+		$lay = strval($lay);
+		echo ("<a href="."../". $lay . "> ITZULI HASIERAKO ORRIRA </a></br></br>");
+	}
+}
+
+//echo('<a href="../layout.html"> ITZULI HASIERAKO ORRIRA </a></br></br>');
 mysqli_close($niremysqli);
 
 ?>
