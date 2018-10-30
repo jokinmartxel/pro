@@ -44,6 +44,9 @@
 </html>
 
 <?php 
+include "dbConfig.php";
+$niremysqli = new mysqli($zerbitzaria,$erabiltzailea,$gakoa,$db);
+
 if (isset ($_GET['op'])){
 	//logeatua dago
 	if ($_GET['op'] == 'logeatua'){
@@ -74,9 +77,13 @@ if (isset ($_GET['op'])){
 		echo "<script> $('#cred').attr('href', '". $cred . "')</script>";
 		
 		//<span class="right" id="login"><a href="./php/logIn.php">LogIn</a> </span>
-		echo "<script> $('#login').before('<span>".$eposta."<span>');</script>";
+		echo "<script> $('#logout').prepend('<span>".$eposta." <span>');</script>";
 		
-		
+		$sql = "SELECT * FROM erabiltzaileak WHERE Eposta='$eposta'";
+		$res = mysqli_query($niremysqli, $sql);
+		$row = mysqli_fetch_assoc($res);
+		$arg = $row['Argazkia'];	
+		if($row['Argazkia']!="") echo "<script> $('#logout').prepend('<img src=".$arg." width=20 height=20 />');</script>";
 	}
 	else {if ($_GET['op'] == 'erreg'){
 		echo "<script> $('#display').replaceWith('Ongi etorria! Ondo erregistratu zara.');</script>";

@@ -43,7 +43,7 @@
 						reader.readAsDataURL(input.files[0]);
 						reader.onload = function (e) {
 							$('#gehiIrudi').remove();
-							$('#galdetegia').append('<img id ="gehiIrudi" style="margin: 10px" src="'+e.target.result+'"/>');
+							$('#galdetegia').append('<img id ="gehiIrudi" style="margin: 10px" src="'+e.target.result+'" width="200" height="150"/>');
 							}
 					}
 				}
@@ -224,7 +224,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			}
 		}
 		
-		$sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_POST[eposta]' , '$_POST[galdera]' , '$_POST[zuzena]' , '$_POST[okerra1]' , '$_POST[okerra2]' , '$_POST[okerra3]' , '$_POST[zailtasuna]' , '$_POST[gaia]' , '$path_berria')";
+		if($_FILES['irudia']['name']!="") $sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_POST[eposta]' , '$_POST[galdera]' , '$_POST[zuzena]' , '$_POST[okerra1]' , '$_POST[okerra2]' , '$_POST[okerra3]' , '$_POST[zailtasuna]' , '$_POST[gaia]' , '$path_berria')";
+		else $sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_POST[eposta]' , '$_POST[galdera]' , '$_POST[zuzena]' , '$_POST[okerra1]' , '$_POST[okerra2]' , '$_POST[okerra3]' , '$_POST[zailtasuna]' , '$_POST[gaia]' , null)";
 		$ema= mysqli_query($niremysqli, $sql);
 
 		if(!$ema){

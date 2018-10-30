@@ -12,6 +12,32 @@
 		   type='text/css' 
 		   media='only screen and (max-width: 480px)'
 		   href='../styles/smartphone.css' />
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
+    <script>
+            $(document).ready(function(){		
+				
+				function irudiaBistaratu(input) {
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+						reader.readAsDataURL(input.files[0]);
+						reader.onload = function (e) {
+							$('#gehiIrudi').remove();
+							$('#argazkia').append('<span>'+files[0].name+'</span>');
+							}
+					}
+				}
+	
+				$("#argazkia").change(function () {
+					irudiaBistaratu(this);
+				});
+
+				$("#argazkia").click(function(){
+					$('#gehiIrudi').remove();
+				});		
+			
+			});
+			
+	</script>
   </head>
   <body>
   <div id='page-wrap'>
@@ -38,7 +64,7 @@
 				Eposta(*)<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]{3,}[0-9]{3}@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required /><br>
 				Deitura(*)<input id="deitura" name="deitura" type="text" size="50" required /><br>
 				Password(*)<input id="password1" name="password1" type="password" size="25" required /><br>
-				Password*)<input id="password2" name="password2" type="password" size="25" required /><br>
+				Password(*)<input id="password2" name="password2" type="password" size="25" required /><br>
 				Argazkia<input type="file" name="argazkia" id="argazkia"><br><br>
 				<input name="submit" type="submit" id="submit" value="Submit"/>
 				<input name="reset" type="reset" id="reset" value="Reset"/><br>
@@ -113,15 +139,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             for( $kont=0; $kont < count($erroreak); $kont++ )
                 echo $erroreak[$kont]."<br/>";
 		}else{
-		
 			
+			$path = $_FILES['argazkia']['tmp_name'];
+		
+			$path_berria = '../images/pertsonak/' . $_FILES['argazkia']['name'];
+			if ( in_array($_FILES['argazkia']['type'], $extentsioak) ) {
+				//echo 'Irudia da';
+				//echo '</br>';
+				if ( $_FILES['argazkia']['size']< $max_tamaina ) {
+					//echo '1 MB baino txikiagoa';
+					//echo '</br>';
+					if( move_uploaded_file ( $path, $path_berria ) ) {
+						//echo 'Irudia zuzen gorde da';
+						//echo '</br>';
+					}
+				}
+			}
 			$sql = "select * from erabiltzaileak where eposta='$eposta'";
 			$result = $niremysqli -> query($sql);
 			if(! ($result)) {echo 'Error in the query'. $result->error;}
 			else{
 				$rows = $result -> num_rows;
 				if($rows==0){
-					$sql1 = "INSERT INTO erabiltzaileak (Eposta, Deitura, Pasahitza, Argazkia) VALUES ('$eposta', '$deitura', '$pasahitza1', null)";
+					if($_FILES['argazkia']['name']!="") $sql1 = "INSERT INTO erabiltzaileak (Eposta, Deitura, Pasahitza, Argazkia) VALUES ('$eposta', '$deitura', '$pasahitza1', '$path_berria')";
+					else $sql1 = "INSERT INTO erabiltzaileak (Eposta, Deitura, Pasahitza, Argazkia) VALUES ('$eposta', '$deitura', '$pasahitza1', null)";
 					$ema= mysqli_query($niremysqli, $sql1);
 					if(!$ema){
 						echo("Errorea query-a gauzatzerakoan: ". mysqli_error($niremysqli));
