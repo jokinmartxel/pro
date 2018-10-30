@@ -22,28 +22,28 @@
 	<h2>Quiz: crazy questions</h2>
     </header>
 	<nav class='main' id='n1' role='navigation'>
-		<span><a href='../layout.php'>Home</a></span>
+		<span><a href='layout.php'>Home</a></span>
 		<span><a href='/quizzes'>Quizzes</a></span>
-		<span><a href='../credits.php'>Credits</a></span>
+		<span><a href='credits.php'>Credits</a></span>
 		<!-- <span><a href='addQuestion.html'>Galdera gehitu 4</a></span> -->
 		<!--<span><a href='../addQuestion5.html' >Galdera gehitu 5</a></span> -->
 	</nav>
     <section class="main" id="s1">
     
 	
-	<div>
-	<form id="signUp" method="post" action="">
-		<fieldset>
-					Eposta(*)<input id="eposta" name="eposta" type="text" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus /><br>
-					Deitura(*)<input id="deitura" name="deitura" type="text" size="50"/><br>
-					Password(*)<input id="password1" name="password1" type="password" size="25"/><br>
-					Password(*)<input id="password2" name="password2" type="password" size="25"/><br>
-					Argazkia: <input id="argazkia" name="argazkia" type="file" accept="image/png, image/jpg, image/jpeg" /><br><br>
-					<input name="reset" type="reset" id="reset" value="Reset"/>
-					<input name="submit" type="submit" id="submit" value="Submit"/>
-		</fieldset>
-	</form><br>
-	</div>
+<fieldset>
+	<form id="signUp" method="post" action="signUp.php" enctype="multipart/form-data">
+	
+		
+				Eposta(*)<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]{3,}[0-9]{3}@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required /><br>
+				Deitura(*)<input id="deitura" name="deitura" type="text" size="50" required /><br>
+				Password(*)<input id="password1" name="password1" type="password" size="25" required /><br>
+				Password*)<input id="password2" name="password2" type="password" size="25" required /><br>
+				Argazkia<input type="file" name="argazkia" id="argazkia"><br><br>
+				<input name="submit" type="submit" id="submit" value="Submit"/>
+				<input name="reset" type="reset" id="reset" value="Reset"/><br>
+	</form>
+</fieldset>
     </section>
 	<footer class='main' id='f1'>
 		 <a href='https://github.com/jokinmartxel/pro'>Link GITHUB</a>
@@ -53,6 +53,10 @@
 </html>
 
 <?php
+
+	include 'dbConfig.php';
+	$niremysqli = new mysqli($zerbitzaria,$erabiltzailea,$gakoa,$db) or die ("Error while connecting");
+	
 	function balidatuBeharrez($balorea){
 	   if(trim($balorea) == ''){
 		  return false;
@@ -61,14 +65,19 @@
 	   }
 	}
 	
-	if (isset($_POST['eposta'])){
+	$extentsioak = array(0=>'image/jpg',1=>'image/jpeg',2=>'image/png');
+	$max_tamaina = 1024 * 1024 * 8;
+	
+	$erroreak = array();
+	
+	
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$eposta = $_POST['eposta'];
 		$deitura = $_POST['deitura'];
 		$pasahitza1 = $_POST['password1'];
 		$pasahitza2 = $_POST['password2'];
-		//$path = $_FILES['irudia']['tmp_name'];
-		include 'dbConfig.php';
-		$niremysqli = new mysqli($zerbitzaria,$erabiltzailea,$gakoa,$db) or die ("Error while connecting");
+		
+		
 		//eposta balidatu
 		if (!balidatuBeharrez($eposta)){
 			$erroreak[]= "Eposta beharrezko balio bat da"; 
@@ -96,28 +105,39 @@
 		if(strcmp(strval($pasahitza1), strval($pasahitza2))!=0){
 			$erroreak[]= "Pasahitzak berdinak izan behar dira";
 		}
-		$sql = "select * from erabiltzaileak where eposta='$eposta'";
-		$result = $niremysqli -> query($sql);
-		if(! ($result)) {echo 'Error in the query'. $result->error;}
-		else{
-			$rows = $result -> num_rows;
-			if($rows==0){
-				$sql1 = "INSERT INTO erabiltzaileak (Eposta, Deitura, Pasahitza, Argazkia) VALUES ('$eposta', '$deitura', '$pasahitza1', null)";
-				$ema= mysqli_query($niremysqli, $sql1);
-				if(!$ema){
-					echo("Errorea query-a gauzatzerakoan: ". mysqli_error($niremysqli));
-					echo "<script>alert('Autentikazio errorea')</script>";
+		
+		
+		if( count($erroreak) > 0 ){
+            echo "<p>ERROREAK EGON DIRA:</p>";
+            // Erroreak erakutsi:
+            for( $kont=0; $kont < count($erroreak); $kont++ )
+                echo $erroreak[$kont]."<br/>";
+		}else{
+		
+			
+			$sql = "select * from erabiltzaileak where eposta='$eposta'";
+			$result = $niremysqli -> query($sql);
+			if(! ($result)) {echo 'Error in the query'. $result->error;}
+			else{
+				$rows = $result -> num_rows;
+				if($rows==0){
+					$sql1 = "INSERT INTO erabiltzaileak (Eposta, Deitura, Pasahitza, Argazkia) VALUES ('$eposta', '$deitura', '$pasahitza1', null)";
+					$ema= mysqli_query($niremysqli, $sql1);
+					if(!$ema){
+						echo("Errorea query-a gauzatzerakoan: ". mysqli_error($niremysqli));
+						echo "<script>alert('Autentikazio errorea')</script>";
+					}
+					else{
+						//echo('DATUAK ONDO GORDE DIRA</br></br>');
+						header ('location: layout.php?op=erreg' );
+					}
 				}
 				else{
-					//echo('DATUAK ONDO GORDE DIRA</br></br>');
-					header ('location: ../layout.php' );
+					echo "<script>alert('Dagoeneko badago eposta hau duen erabiltzailea')</script>";
 				}
 			}
-			else{
-				echo "<script>alert('Dagoeneko badago eposta hau duen erabiltzailea')</script>";
-			}
+			
+			
 		}
-		
-		
 	}
 ?>

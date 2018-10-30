@@ -25,7 +25,7 @@ if (isset ($_GET['op'])){
 		
 		$lay = "layout.php?op=logeatua&eposta=" . $eposta;
 		$lay = strval($lay);
-		echo ("<a href="."../". $lay . "> ITZULI HASIERAKO ORRIRA </a></br></br>");
+		echo ("<a href=". $lay . "> ITZULI HASIERAKO ORRIRA </a></br></br>");
 	}
 }
 

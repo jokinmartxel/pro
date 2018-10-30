@@ -3,15 +3,15 @@
   <head>
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
 	<title>addQuestion 5</title>
-	    <link rel='stylesheet' type='text/css' href='../styles/style.css' />
+	    <link rel='stylesheet' type='text/css' href='styles/style.css' />
 	<link rel='stylesheet' 
 		   type='text/css' 
 		   media='only screen and (min-width: 530px) and (min-device-width: 481px)'
-		   href='../styles/wide.css' />
+		   href='styles/wide.css' />
 	<link rel='stylesheet' 
 		   type='text/css' 
 		   media='only screen and (max-width: 480px)'
-		   href='../styles/smartphone.css' />
+		   href='styles/smartphone.css' />
 		   
 	<style type="text/css">
 			fieldset {padding: 10px;}
@@ -63,7 +63,7 @@
   <body>
   
 <fieldset>
-	<form id="galdetegia" method="post" action="addQuestionwithImage.php" enctype="multipart/form-data">
+	<form id="galdetegia" method="post" action="php/addQuestionwithImage.php" enctype="multipart/form-data">
 	
 		
 				Eposta(*)<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]{3,}[0-9]{3}@ikasle.ehu.eus" title="pro000@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required /><br><br>
@@ -80,12 +80,11 @@
 				<input name="reset" type="reset" id="reset" value="Reset"/><br>
 	</form>
 </fieldset>
-<a href="../layout.php" id="home">HOME</a>
+<a href="layout.php" id="home">HOME</a>
 </body>
 </html>
 
-<?php
-
+<?php 
 if (isset ($_GET['op'])){
 	//logeatua dago
 	if ($_GET['op'] == 'logeatua'){
@@ -96,13 +95,6 @@ if (isset ($_GET['op'])){
 		$lay = "layout.php?op=logeatua&eposta=" . $eposta;
 		$lay = strval($lay);
 		echo "<script> $('#home').attr('href', '". $lay . "')</script>";
-		
-		
-		$action = "addQuestionwithImage.php?op=logeatua&eposta=" . $eposta;
-		$action = strval($action);
-		echo "<script> $('#galdetegia').attr('action', '". $action . "')</script>";
-		
-
 
 	}
 }
@@ -130,10 +122,7 @@ $okerra2 = isset($_POST['okerra2']) ? $_POST['okerra2'] : null;
 $okerra3 = isset($_POST['okerra3']) ? $_POST['okerra3'] : null;
 $zailtasuna = isset($_POST['zailtasuna']) ? $_POST['zailtasuna'] : null;
 $gaia = isset($_POST['gaia']) ? $_POST['gaia'] : null;
-
-
-$extentsioak = array(0=>'image/jpg',1=>'image/jpeg',2=>'image/png');
-$max_tamaina = 1024 * 1024 * 8;
+$irudia = isset($_POST['irudia']) ? $_POST['irudia'] : null;
 
 $erroreak = array();
 
@@ -206,39 +195,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             for( $kont=0; $kont < count($erroreak); $kont++ )
                 echo $erroreak[$kont]."<br/>";
     }else{
+		
 	
-		//$path = '../images/' . $_FILES['irudia']['name'];
-		$path = $_FILES['irudia']['tmp_name'];
-		
-		$path_berria = '../images/galdIrudi/' . $_FILES['irudia']['name'];
-		if ( in_array($_FILES['irudia']['type'], $extentsioak) ) {
-			//echo 'Irudia da';
-			//echo '</br>';
-			if ( $_FILES['irudia']['size']< $max_tamaina ) {
-				//echo '1 MB baino txikiagoa';
-				//echo '</br>';
-				if( move_uploaded_file ( $path, $path_berria ) ) {
-					//echo 'Irudia zuzen gorde da';
-					//echo '</br>';
-				}
-			}
-		}
-		
-		$sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_POST[eposta]' , '$_POST[galdera]' , '$_POST[zuzena]' , '$_POST[okerra1]' , '$_POST[okerra2]' , '$_POST[okerra3]' , '$_POST[zailtasuna]' , '$_POST[gaia]' , '$path_berria')";
-		$ema= mysqli_query($niremysqli, $sql);
+	$sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_POST[eposta]' , '$_POST[galdera]' , '$_POST[zuzena]' , '$_POST[okerra1]' , '$_POST[okerra2]' , '$_POST[okerra3]' , '$_POST[zailtasuna]' , '$_POST[gaia]' , null)";
+	$ema= mysqli_query($niremysqli, $sql);
 
-		if(!$ema){
-			echo("Errorea query-a gauzatzerakoan: ". mysqli_error($niremysqli));
-			echo ('<a href="addQuestionwithImage.php">Formulariora itzultzeko klikatu hemen</a>');
-		}
-		else{
-			echo('</br>DATUAK ONDO GORDE DIRA</br></br>');
-			
-			$showi = "showQuestionswithImages.php?op=logeatua&eposta=" . $eposta;
-			$showi = strval($showi);
-			//echo "<script> $('#galdetegia').attr('action', '". $showi . "')</script>";
-			echo ('<a href="'.$showi.'">Datubaseko datuak ikusteko klikatu hemen</a></br></br>');	
-		}
+	if(!$ema){
+		echo("Errorea query-a gauzatzerakoan: ". mysqli_error($niremysqli));
+		echo ('<a href="../addQuestion5.php">Formulariora itzultzeko klikatu hemen</a>');
+	}
+	else{
+		echo('DATUAK ONDO GORDE DIRA</br></br>');
+		echo ('<a href="showQuestions.php">Datubaseko datuak ikusteko klikatu hemen</a></br></br>');	
+	}
 	}
 }
 ?>
