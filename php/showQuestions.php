@@ -17,7 +17,7 @@ if (mysqli_num_rows($res) > 0) {
 else{ echo "Ez dago lerrorik";}
 if (!$res){	echo("Errorea query-a gauzatzerakoan: ". mysqli_error($niremysqli));}
 
-echo('<a href="../layout.html"> ITZULI HASIERAKO ORRIRA </a></br></br>');
+echo('<a href="../layout.php"> ITZULI HASIERAKO ORRIRA </a></br></br>');
 mysqli_close($niremysqli);
 
 ?>

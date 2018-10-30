@@ -16,17 +16,17 @@
   <body>
   <div id='page-wrap'>
 	<header class='main' id='h1'>
-      <span class="right"><a href="./php/login.php">LogIn</a> </span>
-	  <span class="right"><a href="./php/signUp.php">Sign Up</a> </span>
+      <span class="right"><a href="logIn.php">LogIn</a> </span>
+	  <span class="right"><a href="signUp.php">Sign Up</a> </span>
       <span class="right" style="display:none;"><a href="/logout">LogOut</a> </span>
 	<h2>Quiz: crazy questions</h2>
     </header>
 	<nav class='main' id='n1' role='navigation'>
-		<span><a href='layout.html'>Home</a></span>
+		<span><a href='../layout.php'>Home</a></span>
 		<span><a href='/quizzes'>Quizzes</a></span>
-		<span><a href='credits.html'>Credits</a></span>
+		<span><a href='../credits.html'>Credits</a></span>
 		<!-- <span><a href='addQuestion.html'>Galdera gehitu 4</a></span> -->
-		<span><a href='addQuestion5.html'>Galdera gehitu 5</a></span>
+		<span><a href='../addQuestion5.html'>Galdera gehitu 5</a></span>
 	</nav>
     <section class="main" id="s1">
     
@@ -34,10 +34,10 @@
 	<div>
 	<form id="signUp" method="post" action="">
 		<fieldset>
-					Eposta(*)<input id="eposta" name="eposta" type="text" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus /><br><br>
+					Eposta(*)<input id="eposta" name="eposta" type="text" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus /><br>
 					Deitura(*)<input id="deitura" name="deitura" type="text" size="50"/><br>
-					Password(*)<input id="password1" name="password1" type="text" size="25"/><br>
-					Password(*)<input id="password2" name="password2" type="text" size="25"/><br>
+					Password(*)<input id="password1" name="password1" type="password" size="25"/><br>
+					Password(*)<input id="password2" name="password2" type="password" size="25"/><br>
 					Argazkia: <input id="argazkia" name="argazkia" type="file" accept="image/png, image/jpg, image/jpeg" /><br><br>
 					<input name="reset" type="reset" id="reset" value="Reset"/>
 					<input name="submit" type="submit" id="submit" value="Submit"/>
@@ -80,7 +80,7 @@
 		if (!balidatuBeharrez($deitura)){
 			$erroreak[]= "Deitura beharrezko balio bat da"; 
 		}
-		if (!preg_match('/[A-Z][a-zA-Z]{2,}[a-zA-Z\s]*[A-Z][a-zA-Z]{2,}[a-zA-Z\s]*', $deitura)){
+		if (!preg_match('$[A-Z][a-zA-Z]{2,}[a-zA-Z\s]*[A-Z][a-zA-Z]{2,}[a-zA-Z\s]*$', $deitura)){
 			$erroreak[]= "Deitura: gutxienez bi hitz hizki larriz hasten direnak"; 
 		}
 		//pasahitza balidatu
@@ -96,9 +96,9 @@
 		if(strcmp(strval($pasahitza1), strval($pasahitza2))!=0){
 			$erroreak[]= "Pasahitzak berdinak izan behar dira";
 		}
-		$sql = "select * from erabiltzaileak where eposta='$pasahitza1'";
+		$sql = "select * from erabiltzaileak where eposta='$eposta'";
 		$result = $niremysqli -> query($sql);
-		if(! ($result)) {echo 'Error in the query';}
+		if(! ($result)) {echo 'Error in the query'. $result->error;}
 		else{
 			$rows = $result -> num_rows;
 			if($rows==0){
@@ -109,8 +109,8 @@
 					echo "<script>alert('Autentikazio errorea')</script>";
 				}
 				else{
-					echo('DATUAK ONDO GORDE DIRA</br></br>');
-					echo ('<a href="showQuestionswithImages.php">Datubaseko datuak ikusteko klikatu hemen</a></br></br>');	
+					//echo('DATUAK ONDO GORDE DIRA</br></br>');
+					header ('location: ../layout.php' );
 				}
 			}
 			else{

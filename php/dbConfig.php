@@ -1,6 +1,6 @@
 <?php
 
-$local=1; //1 hodeiko kasua
+$local=0; //1 hodeiko kasua
 if($local){
 	$zerbitzaria="localhost";
 	$erabiltzailea="id7414762_jokinmartxel";
