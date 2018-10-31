@@ -19,7 +19,7 @@
 	<header class='main' id='h1'>
       <span class="right" id="login"><a href="logIn.php">LogIn</a> </span>
 	  <span class="right" id="signup"><a href="signUp.php">Sign Up</a> </span>
-      <span class="right" id="logout" style="display:none;"><a href="logout.php?op=logeatua">LogOut</a> </span>
+      <span class="right" id="logout" style="display:none;"><a href="logOut.php?op=logeatua">LogOut</a> </span>
 	<h2>Quiz: crazy questions</h2>
     </header>
 	<nav class='main' id='n1' role='navigation'>

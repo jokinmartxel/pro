@@ -170,7 +170,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					}
 					else{
 						//echo('DATUAK ONDO GORDE DIRA</br></br>');
-						header ('location: layout.php?op=erreg' );
+						//header ('location: layout.php?op=erreg' );
+						echo('<script>location.href="layout.php?op=erreg"</script>');
 					}
 				}
 				else{

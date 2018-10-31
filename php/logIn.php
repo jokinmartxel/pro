@@ -50,9 +50,6 @@
 </div>
 </body>
 </html>
-
-
-
 <?php 
 if (isset ($_POST['eposta'])){
 	$usr_mail = $_POST['eposta'];
@@ -64,16 +61,16 @@ if (isset ($_POST['eposta'])){
 	if(! ($result)) {echo 'Error in the query'. $result->error;}
 		else{
 			$rows_cnt = $result->num_rows;
-			
+			$niremysqli->close();
 			if ($rows_cnt == 1) {
 				$rows_cnt = 0;
 				echo "<script> alert('Acces granted')</script>";
-				$var = 'location: layout.php?op=logeatua&eposta=' . $usr_mail;
-				header ($var);
+				//$var = 'location: layout.php?op=logeatua&eposta=' . $usr_mail;
+				//header ('Location: ./layout.php');
+				echo('<script>location.href="layout.php?op=logeatua&eposta='.$usr_mail.'" </script>');
 				
 			}
 			else{ echo "<script> alert('Autentifikazio errorea')</script>";}
-			$niremysqli->close();
 		}
 	
 
