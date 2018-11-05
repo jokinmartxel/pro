@@ -240,6 +240,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			//echo "<script> $('#galdetegia').attr('action', '". $showi . "')</script>";
 			echo ('<a href="'.$showi.'">Datubaseko datuak ikusteko klikatu hemen</a></br></br>');	
 		}
+		
+		//XML
+		
+		$xml = simplexml_load_file('../xml/questions.xml');
+		
+		if ($xml === false) {
+			echo "Errorea XML fitxategia kargatzerakoan\n";
+			foreach(libxml_get_errors() as $error) {
+				echo "\t", $error->message;
+			}
+		}else{
+		
+			$assessmentItem = $xml->addChild('assessmentItem');
+			$assessmentItem->addAttribute('author', $eposta);
+			$assessmentItem->addAttribute('subject', $gaia);
+			$itemBody = $assessmentItem->addChild('itemBody');
+			$p = $itemBody->addChild('p', $galdera);
+			$correctResponse = $assessmentItem->addChild('correctResponse');
+			$value = $correctResponse->addChild('value', $zuzena);
+			$incorrectResponses = $assessmentItem->addChild('incorrectResponses');
+			$value1 = $incorrectResponses->addChild('value', $okerra1);
+			$value2 = $incorrectResponses->addChild('value', $okerra2);
+			$value3 = $incorrectResponses->addChild('value', $okerra3);
+		
+			
+			// <assessmentItem author="rosa001@ikasle.ehu.eus" subject="mikologia">
+				// <itemBody> 
+					// <p>Zein Amanita da jangarria?</p>
+				// </itemBody>
+				// <correctResponse>
+					// <value>Caesarea</value>
+				// </correctResponse>
+				// <incorrectResponses>
+					// <value>Phalloides</value>
+					// <value>Muscaria</value>
+					// <value>Virosa</value>
+				// </incorrectResponses>
+			// </assessmentItem>
+		
+			//echo $xml->asXML();
+			$xml->asXML('../xml/questions.xml');
+			
+			echo ('<a href="showXMLQuenstions.php">XMLko datuak ikusteko klikatu hemen</a></br></br>');	
+		
+		}
 	}
 }
 ?>

@@ -28,6 +28,8 @@
 		<span><a href='credits.php' id="cred">Credits</a></span>
 		<span><a href='addQuestionwithImages.php' style="display:none;" id="addQ">Galdera gehitu</a></span> 
 		<span><a href='showQuestionswithImages.php' style="display:none;" id="showQ">Galderak ikusi</a></span>
+		<span><a href='../xml/questions.xml' style="display:none;" id="xmlQ">XML galderak</a></span>
+		<span><a href='showXMLQuenstions.php' style="display:none;" id="xmlQP">XML galderak (PHP)</a></span>
 	</nav>
     <section class="main" id="s1">
     
@@ -57,6 +59,9 @@ if (isset ($_GET['op'])){
 		
 		echo "<script> $('#addQ').css('display', 'block');</script>";
 		echo "<script> $('#showQ').css('display', 'block');</script>";
+		echo "<script> $('#xmlQ').css('display', 'block');</script>";
+		echo "<script> $('#xmlQP').css('display', 'block');</script>";
+		
 		
 		$eposta = strval($_GET['eposta']);
 
@@ -75,6 +80,12 @@ if (isset ($_GET['op'])){
 		$cred = "credits.php?op=logeatua&eposta=" . $eposta;
 		$cred = strval($cred);
 		echo "<script> $('#cred').attr('href', '". $cred . "')</script>";
+		
+		$xmlq = "showXMLQuenstions.php?op=logeatua&eposta=" . $eposta;
+		$xmlq = strval($xmlq);
+		echo "<script> $('#xmlQP').attr('href', '". $xmlq . "')</script>";
+		
+
 		
 		//<span class="right" id="login"><a href="./php/logIn.php">LogIn</a> </span>
 		echo "<script> $('#logout').prepend('<span>".$eposta." <span>');</script>";
