@@ -12,11 +12,17 @@ foreach($xml->assessmentItem as $assessmentItem){
 	echo "<tr><td>" . $egilea. "</td><td>" . $enuntziatua. "</td><td>" . $zuzena. "</td></tr> \n";
 }
 
-$eposta = strval($_GET['eposta']);
+if (isset ($_GET['op'])){
+	//logeatua dago
+	if ($_GET['op'] == 'logeatua'){
+		//header ('location: ../layout.php' );
+		$eposta = strval($_GET['eposta']);
 		
-$lay = "layout.php?op=logeatua&eposta=" . $eposta;
-$lay = strval($lay);
-echo ("<a href=". $lay . "> ITZULI HASIERAKO ORRIRA </a></br></br>");
+		$lay = "layout.php?op=logeatua&eposta=" . $eposta;
+		$lay = strval($lay);
+		echo ("<a href=". $lay . "> ITZULI HASIERAKO ORRIRA </a></br></br>");
+	}
+}
 
 	//egilea enuntziatua erantzunzuzena
 

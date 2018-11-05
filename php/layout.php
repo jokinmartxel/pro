@@ -30,6 +30,7 @@
 		<span><a href='showQuestionswithImages.php' style="display:none;" id="showQ">Galderak ikusi</a></span>
 		<span><a href='../xml/questions.xml' style="display:none;" id="xmlQ">XML galderak</a></span>
 		<span><a href='showXMLQuenstions.php' style="display:none;" id="xmlQP">XML galderak (PHP)</a></span>
+		<span><a href='questionsTransAuto.php' style="display:none;" id="xmlTA">XML transfAuto</a></span>
 	</nav>
     <section class="main" id="s1">
     
@@ -61,6 +62,7 @@ if (isset ($_GET['op'])){
 		echo "<script> $('#showQ').css('display', 'block');</script>";
 		echo "<script> $('#xmlQ').css('display', 'block');</script>";
 		echo "<script> $('#xmlQP').css('display', 'block');</script>";
+		echo "<script> $('#xmlTA').css('display', 'block');</script>";
 		
 		
 		$eposta = strval($_GET['eposta']);
@@ -83,7 +85,11 @@ if (isset ($_GET['op'])){
 		
 		$xmlq = "showXMLQuenstions.php?op=logeatua&eposta=" . $eposta;
 		$xmlq = strval($xmlq);
-		echo "<script> $('#xmlQP').attr('href', '". $xmlq . "')</script>";
+		echo "<script> $('#xmlQP').attr('href', '". $xmlq . "')</script>";		
+		
+		$xmlta = "questionsTransAuto.php?op=logeatua&eposta=" . $eposta;
+		$xmlta = strval($xmlta);
+		echo "<script> $('#xmlTA').attr('href', '". $xmlta . "')</script>";
 		
 
 		
