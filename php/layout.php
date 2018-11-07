@@ -29,8 +29,8 @@
 		<span><a href='addQuestionwithImages.php' style="display:none;" id="addQ">Galdera gehitu</a></span> 
 		<span><a href='showQuestionswithImages.php' style="display:none;" id="showQ">Galderak ikusi</a></span>
 		<span><a href='../xml/questions.xml' style="display:none;" id="xmlQ">XML galderak</a></span>
-		<span><a href='../xml/questionsTransAuto.xml' style="display:none;" id="xmlQP">XML galderak (PHP)</a></span>
-		<span><a href='questionsTransAuto.php' style="display:none;" id="xmlTA">XML transfAuto</a></span>
+		<span><a href='showXMLQuenstions.php' style="display:none;" id="xmlQP">XML galderak (PHP)</a></span>
+		<span><a href='../xml/questionsTransAuto.xml' style="display:none;" id="xmlTA">XML transfAuto</a></span>
 	</nav>
     <section class="main" id="s1">
     
