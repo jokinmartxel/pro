@@ -87,10 +87,7 @@ if (isset ($_GET['op'])){
 		$xmlq = strval($xmlq);
 		echo "<script> $('#xmlQP').attr('href', '". $xmlq . "')</script>";		
 		
-		$xmlta = "questionsTransAuto.php?op=logeatua&eposta=" . $eposta;
-		$xmlta = strval($xmlta);
-		echo "<script> $('#xmlTA').attr('href', '". $xmlta . "')</script>";
-		
+
 
 		
 		//<span class="right" id="login"><a href="./php/logIn.php">LogIn</a> </span>
