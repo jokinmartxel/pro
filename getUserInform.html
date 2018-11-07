@@ -9,18 +9,34 @@
 			$('#button').click(function() {
 				$.get('xml/erabiltzaileak.xml', function(d){
 					var epostaZer = $(d).find("eposta");
+					var badago = false;
 					for (var i = 0; i < epostaZer.length; i++){
 						var eposta = epostaZer[i].childNodes[0].nodeValue;
 						//alert(eposta);
 						if(eposta.localeCompare($('#eposta').val())==0){
 							//alert("berdina");
-							var erabZer = $(d).find("erabiltzailea");
-							alert(erabZer.length);
-							<!-- var izena = erabZer[i].childNodes[1].childNodes[1].nodeValue; -->
-							var izena = erabZer[0].childNodes[3].nodeValue;
-							alert(izena);
-						}
-			
+							var telefZer = $(d).find("telefonoa");
+							var telefonoa = telefZer[i].childNodes[0].nodeValue;
+							var erabZer = $(d).find("izena");
+							var izena = erabZer[i].childNodes[0].nodeValue;
+							var abizena1Zer = $(d).find("abizena1");
+							var abizena1 = abizena1Zer[i].childNodes[0].nodeValue;
+							var abizena2Zer = $(d).find("abizena2");
+							var abizena2 = abizena2Zer[i].childNodes[0].nodeValue;
+							var abizenak = abizena1.concat(" ");
+							var abizenak = abizenak.concat(abizena2);
+							$('#tel').val(telefonoa);
+							$('#name').val(izena);
+							$('#surname').val(abizenak);
+							badago = true;
+							
+						}			
+					}
+					if (!badago){
+						alert("Eposta ez dago UPV/EHU-n erregistraturik");
+						$('#tel').val("");
+						$('#name').val("");
+						$('#surname').val("");
 					}
 				});
 			});
@@ -36,11 +52,11 @@
 					Student's email<br>
 					<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]{3,}[0-9]{3}@ikasle.ehu.eus" title="pro000@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required /><br>
 					Telephone number<br>
-					<input id="tel" name="tel" type="text" size="50"  /><br>
+					<input id="tel" name="tel" type="text" size="50"  readonly="readonly"/><br>
 					Student's name<br>
-					<input id="name" name="name" type="text" size="25"  /><br>
+					<input id="name" name="name" type="text" size="25" readonly="readonly" /><br>
 					Student's surname<br>
-					<input id="surname" name="surname" type="text" size="25"  /><br><br>
+					<input id="surname" name="surname" type="text" size="25"  readonly="readonly"/><br><br>
 					<input name="button" id="button" type="button" value="Autocomplete"/>
 		</form>
 	</div>
