@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
+	<title>getUserInform</title>
+	 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+	 <script>
+			$(document).ready(function() {
+			$('#button').click(function() {
+				$.get('xml/erabiltzaileak.xml', function(d){
+					var epostaZer = $(d).find("eposta");
+					for (var i = 0; i < epostaZer.length; i++){
+						var eposta = epostaZer[i].childNodes[0].nodeValue;
+						//alert(eposta);
+						if(eposta.localeCompare($('#eposta').val())==0){
+							//alert("berdina");
+							var erabZer = $(d).find("erabiltzailea");
+							alert(erabZer.length);
+							<!-- var izena = erabZer[i].childNodes[1].childNodes[1].nodeValue; -->
+							var izena = erabZer[0].childNodes[3].nodeValue;
+							alert(izena);
+						}
+			
+					}
+				});
+			});
+				
+			});
+	  </script>
+	</head>
+	<body>
+	<fieldset>
+	<h1 align="center">Type an student's valid email... to get his/her personal record</h1>
+	<div align="center">
+		<form id="galdetegia" method="post" action="" enctype="multipart/form-data" >
+					Student's email<br>
+					<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]{3,}[0-9]{3}@ikasle.ehu.eus" title="pro000@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required /><br>
+					Telephone number<br>
+					<input id="tel" name="tel" type="text" size="50"  /><br>
+					Student's name<br>
+					<input id="name" name="name" type="text" size="25"  /><br>
+					Student's surname<br>
+					<input id="surname" name="surname" type="text" size="25"  /><br><br>
+					<input name="button" id="button" type="button" value="Autocomplete"/>
+		</form>
+	</div>
+	</fieldset>
+	</body>
+</html>
