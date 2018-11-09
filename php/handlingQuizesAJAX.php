@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
@@ -13,6 +13,18 @@
 		   media='only screen and (max-width: 480px)'
 		   href='../styles/smartphone.css' />
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
+	<script language = "javascript">
+		xhro = new XMLHttpRequest();
+		xhro.onreadystatechange = function(){
+			alert(xhro.readyState);
+			if ((xhro.readyState==4))
+			{ document.getElementById("display").innerHTML= xhro.responseText;}
+		}
+		function datuakEskatu(){
+			xhro.open("GET","showXMLMyQuestions.php?eposta=$_GET['eposta']");
+			xhro.send(null);
+		}
+	</script>
   </head>
   <body>
   <div id='page-wrap'>
@@ -37,7 +49,9 @@
     
 	
 	<div id="display">
-	Quizzes and credits will be displayed in this spot in future laboratories ...
+		<input type="button" id="showB" name="showB" value="Show me my questions" onclick="datuakEskatu()" />
+		<input type="button" id="addB" name="addB" value="Add question" onclick="" />
+		
 	</div>
     </section>
 	<footer class='main' id='f1'>
@@ -57,7 +71,7 @@ if (isset ($_GET['op'])){
 		echo "<script> $('#login').css('display', 'none');</script>";
 		echo "<script> $('#signup').css('display', 'none');</script>";
 		echo "<script> $('#logout').css('display', 'block');</script>";
-		echo "<script> $('#display').replaceWith('Ongi etorria! Logeatuta zaude.');</script>";
+
 		
 		echo "<script> $('#addQ').css('display', 'block');</script>";
 		echo "<script> $('#showQ').css('display', 'block');</script>";
@@ -89,9 +103,7 @@ if (isset ($_GET['op'])){
 		$xmlq = strval($xmlq);
 		echo "<script> $('#xmlQP').attr('href', '". $xmlq . "')</script>";	
 
-		$xmlH = "handlingQuizesAJAX.php?op=logeatua&eposta=" . $eposta;
-		$xmlH = strval($xmlH);
-		echo "<script> $('#xmlHQ').attr('href', '". $xmlH . "')</script>";
+						
 		
 
 
