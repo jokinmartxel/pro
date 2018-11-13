@@ -10,23 +10,9 @@ foreach($xml->assessmentItem as $assessmentItem){
 	$egilea = $assessmentItem['author'];
 	$enuntziatua = $assessmentItem->itemBody->p;
 	$zuzena = $assessmentItem->correctResponse->value;
-	echo "<tr><td>" . $egilea. "</td><td>" . $enuntziatua. "</td><td>" . $zuzena. "</td></tr> \n";
+	if (strcmp($egilea, $eposta)==0){
+		echo "<tr><td>" . $egilea. "</td><td>" . $enuntziatua. "</td><td>" . $zuzena. "</td></tr> \n";
+	}
 }
-
-	//egilea enuntziatua erantzunzuzena
-
-	// <assessmentItem author="rosa001@ikasle.ehu.eus" subject="mikologia">
-		// <itemBody> 
-			// <p>Zein Amanita da jangarria?</p>
-		// </itemBody>
-		// <correctResponse>
-			// <value>Caesarea</value>
-		// </correctResponse>
-		// <incorrectResponses>
-			// <value>Phalloides</value>
-			// <value>Muscaria</value>
-			// <value>Virosa</value>
-		// </incorrectResponses>
-	// </assessmentItem>
 
 ?>

@@ -16,14 +16,31 @@
 	<script language = "javascript">
 		xhro = new XMLHttpRequest();
 		xhro.onreadystatechange = function(){
-			alert(xhro.readyState);
+			//alert(xhro.readyState);
 			if ((xhro.readyState==4))
 			{ document.getElementById("display").innerHTML= xhro.responseText;}
 		}
 		function datuakEskatu(){
-			xhro.open("GET","showXMLMyQuestions.php?eposta=$_GET['eposta']");
+			xhro.open("GET","showXMLMyQuestions.php?eposta=<?php echo $_GET['eposta']?>");
 			xhro.send(null);
 		}
+		
+		function datuakGehitu(){
+			
+			
+			//falta da gehitzea datuak datu basean eta xml-an
+
+			
+			
+						
+			$('#display').load("showXMLMyQuestions.php?eposta=<?php echo $_GET['eposta']?>");
+			
+			
+
+		}
+		
+
+		
 	</script>
   </head>
   <body>
@@ -46,12 +63,32 @@
 		<span><a href='handlingQuizesAJAX.php' style="display:none;" id="xmlHQ">handlingQuizesAJAX</a></span>
 	</nav>
     <section class="main" id="s1">
-    
+
+	<div id="buttons">
+		<input type="button" id="showB" name="showB" value="Show me my questions" onclick="datuakEskatu()" />
+		<input type="button" id="addB" name="addB" value="Add question" onclick="datuakGehitu()" />
+	</div>
+	<fieldset>
+	<form id="galdetegia" enctype="multipart/form-data">
+	
+				
+				Eposta(*)<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]{3,}[0-9]{3}@ikasle.ehu.eus" title="pro000@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required /><br><br>
+				Galdera(*)<input id="galdera" name="galdera" type="text" size="50" required /><br>
+				Erantzun zuzena(*)<input id="zuzena" name="zuzena" type="text" size="25" required /><br>
+				Erantzun okerra 1(*)<input id="okerra1" name="okerra1" type="text" size="25" required /><br>
+				Erantzun okerra 2(*)<input id="okerra2" name="okerra2" type="text" size="25" required /><br>
+				Erantzun okerra 3(*)<input id="okerra3" name="okerra3" type="text" size="25" required /><br><br>
+				
+				Zailtasuna(*)<input id="zailtasuna" name="zailtasuna" type="number" size="25" min="0" max="5" placeholder="0-5" required><br>
+				Gaia(*)<input id="gaia" name="gaia" type="text" size="25" required /><br>
+				Irudia<input id="irudia" name="irudia" type="file" accept="image/png, image/jpg, image/jpeg" /><br><br>
+	</form>
+</fieldset>
+	
+	
+	
 	
 	<div id="display">
-		<input type="button" id="showB" name="showB" value="Show me my questions" onclick="datuakEskatu()" />
-		<input type="button" id="addB" name="addB" value="Add question" onclick="" />
-		
 	</div>
     </section>
 	<footer class='main' id='f1'>
