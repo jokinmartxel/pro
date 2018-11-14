@@ -18,47 +18,32 @@
 		xhro.onreadystatechange = function(){
 			//alert(xhro.readyState);
 			if ((xhro.readyState==4))
-			{ document.getElementById("display").innerHTML= xhro.responseText;}
+			{ document.getElementById("gald").innerHTML= xhro.responseText;}
 		}
 		// javascript
 		function datuakEskatu(){
 			xhro.open("GET","showXMLMyQuestions.php?eposta=<?php echo $_GET['eposta']?>");
 			xhro.send(null);
 		}
-		
-		
+			
 		function datuakGehitu(){
-			
-			
+					
 			//falta da gehitzea datuak datu basean eta xml-an
 
 			// var url = 'addQuestionwithImageAJAX.php?eposta=' + $('#eposta').val() + "&galdera=" + $('#galdera').val();
 			var param = $('#galdetegia').serialize();
-			
-			
-			
+					
 			$.ajax({
 				url : "addQuestionwithImageAJAX.php",
 				dataType : 'php',
 				data : param,
 				cache : false,
-				success : function() {
-					datuakEskatu();
+				complete : function() {
+					$('#gald').load("showXMLMyQuestions.php?eposta=<?php echo $_GET['eposta']?>");
 				}
 			});
-			
-			
-			
-			
-						
-			$('#display').load("showXMLMyQuestions.php?eposta=<?php echo $_GET['eposta']?>");
-			
-			
-
 		}
-		
-
-		
+	
 	</script>
   </head>
   <body>
@@ -81,15 +66,10 @@
 		<span><a href='handlingQuizesAJAX.php' style="display:none;" id="xmlHQ">handlingQuizesAJAX</a></span>
 	</nav>
     <section class="main" id="s1">
-
-	<div id="buttons">
-		<input type="button" id="showB" name="showB" value="Show me my questions" onclick="datuakEskatu()" />
-		<input type="button" id="addB" name="addB" value="Add question" onclick="datuakGehitu()" />
-	</div>
-	<fieldset>
 	<form id="galdetegia" enctype="multipart/form-data">
 	
-				
+				<input type="button" id="showB" name="showB" value="Show me my questions" onclick="datuakEskatu()" />
+				<input type="button" id="addB" name="addB" value="Add question" onclick="datuakGehitu()" /><br>
 				Eposta(*)<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]{3,}[0-9]{3}@ikasle.ehu.eus" title="pro000@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required /><br><br>
 				Galdera(*)<input id="galdera" name="galdera" type="text" size="50" required /><br>
 				Erantzun zuzena(*)<input id="zuzena" name="zuzena" type="text" size="25" required /><br>
@@ -101,13 +81,7 @@
 				Gaia(*)<input id="gaia" name="gaia" type="text" size="25" required /><br>
 				Irudia<input id="irudia" name="irudia" type="file" accept="image/png, image/jpg, image/jpeg" /><br><br>
 	</form>
-</fieldset>
-	
-	
-	
-	
-	<div id="display">
-	</div>
+	<div id="gald"></div>
     </section>
 	<footer class='main' id='f1'>
 		 <a href='https://github.com/jokinmartxel/pro'>Link GITHUB</a>
@@ -137,7 +111,8 @@ if (isset ($_GET['op'])){
 		
 		
 		$eposta = strval($_GET['eposta']);
-
+		echo "<script> $('#eposta').attr('value', '" . $eposta . "');</script>";
+		
 		$addq = "addQuestionwithImage.php?op=logeatua&eposta=" . $eposta;
 		$addq = strval($addq) ;
 		echo "<script> $('#addQ').attr('href', '". $addq . "')</script>";
@@ -158,11 +133,7 @@ if (isset ($_GET['op'])){
 		$xmlq = strval($xmlq);
 		echo "<script> $('#xmlQP').attr('href', '". $xmlq . "')</script>";	
 
-						
-		
-
-
-		
+	
 		//<span class="right" id="login"><a href="./php/logIn.php">LogIn</a> </span>
 		echo "<script> $('#logout').prepend('<span>".$eposta." <span>');</script>";
 		
@@ -171,12 +142,6 @@ if (isset ($_GET['op'])){
 		$row = mysqli_fetch_assoc($res);
 		$arg = $row['Argazkia'];	
 		if($row['Argazkia']!="") echo "<script> $('#logout').prepend('<img src=".$arg." width=20 height=20 />');</script>";
-	}
-	else {if ($_GET['op'] == 'erreg'){
-		echo "<script> $('#display').replaceWith('Ongi etorria! Ondo erregistratu zara.');</script>";
-	}else{
-		header ('location: layout.php?op=ezlogeatua' );
-	}
 	}
 }
 ?>
