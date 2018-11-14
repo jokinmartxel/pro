@@ -20,16 +20,34 @@
 			if ((xhro.readyState==4))
 			{ document.getElementById("display").innerHTML= xhro.responseText;}
 		}
+		// javascript
 		function datuakEskatu(){
 			xhro.open("GET","showXMLMyQuestions.php?eposta=<?php echo $_GET['eposta']?>");
 			xhro.send(null);
 		}
+		
 		
 		function datuakGehitu(){
 			
 			
 			//falta da gehitzea datuak datu basean eta xml-an
 
+			// var url = 'addQuestionwithImageAJAX.php?eposta=' + $('#eposta').val() + "&galdera=" + $('#galdera').val();
+			var param = $('#galdetegia').serialize();
+			
+			
+			
+			$.ajax({
+				url : "addQuestionwithImageAJAX.php",
+				dataType : 'php',
+				data : param,
+				cache : false,
+				success : function() {
+					datuakEskatu();
+				}
+			});
+			
+			
 			
 			
 						
