@@ -1,0 +1,14 @@
+1. Hautazkoa
+
+Ataza hau burutzeko lehendabizi setinterval funtzioa erabiliz 20000 milisegundu pasata
+ajax bidez dei bat egin da php fitxategi bati erabiltzailearen eposta pasaz.
+php fitxategi horrek xml fitxategia korritzen du eta eposta duen erabiltzailea bada bat gehiago
+gehitzen du.
+
+
+2. Hautazkoa
+
+Ataza hau burutzeko aurrekoan bezala setinterval funtzioa erabili da ajax bidez dei bat egiteko
+php fitxategi bati. Fitxategi horretan counter.xml fitxategiko kont balioa ateratzen du.
+Kont balioa login eta logout egiterakoan eguneratzen joaten da. Login egiten den bakoitzean 
+1 gehituz eta logout egiterakoan bat kenduz.
