@@ -42,6 +42,34 @@
 					$('#gald').load("showXMLMyQuestions.php?eposta=<?php echo $_GET['eposta']?>");
 				}
 			});
+			$('#galdetegia')[0].reset();
+		}
+		
+		setInterval(nireaGalderak, 20000);
+		function nireaGalderak() {
+			$.ajax({
+				url : "nireGalderaKop.php?eposta=<?php echo $_GET['eposta']?>",
+				dataType : 'php',
+				data : "",
+				cache : false,
+				complete : function() {
+					$('#galdKop').load("nireGalderaKop.php?eposta=<?php echo $_GET['eposta']?>");
+				}
+			});
+		}
+		
+		
+		setInterval(erabKop, 10000);
+		function erabKop() {
+			$.ajax({
+				url : "bueltatuErabKop.php",
+				dataType : 'php',
+				data : "",
+				cache : false,
+				complete : function() {
+					$('#erabKop').load("bueltatuErabKop.php");
+				}
+			});
 		}
 	
 	</script>
@@ -82,6 +110,8 @@
 				Irudia<input id="irudia" name="irudia" type="file" accept="image/png, image/jpg, image/jpeg" /><br><br>
 	</form>
 	<div id="gald"></div>
+	<div id="galdKop"></div>
+	<div id="erabKop"></div>
     </section>
 	<footer class='main' id='f1'>
 		 <a href='https://github.com/jokinmartxel/pro'>Link GITHUB</a>

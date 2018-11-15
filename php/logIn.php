@@ -64,9 +64,26 @@ if (isset ($_POST['eposta'])){
 			$niremysqli->close();
 			if ($rows_cnt == 1) {
 				$rows_cnt = 0;
+				
+				// eguneratu logeatu dauden erabiltzaileak
+				$xml = simplexml_load_file('../xml/counter.xml');
+				
+				if ($xml === false) {
+					echo "Errorea XML fitxategia kargatzerakoan\n";
+					foreach(libxml_get_errors() as $error) {
+						echo "\t", $error->message;
+					}
+				}else{
+					$xml->kont[0] = $xml->kont[0] + 1;
+					$xml->asXML('../xml/counter.xml');
+				}
+				
+				
+				
+				
+				
+				
 				echo "<script> alert('Acces granted')</script>";
-				//$var = 'location: layout.php?op=logeatua&eposta=' . $usr_mail;
-				//header ('Location: ./layout.php');
 				echo('<script>location.href="layout.php?op=logeatua&eposta='.$usr_mail.'" </script>');
 				
 			}
