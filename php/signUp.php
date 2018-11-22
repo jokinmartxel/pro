@@ -37,28 +37,50 @@
 
 				var epostaBalio="false";
 				var passBalio="false";
-				
+					
 				$("#eposta").change(function (){
-					$.ajax({
-						url : "",
-						dataType : 'php',
-						data : "",
-						cache : false,
-						complete : function(erantzuna) {
-							epostaBalio=erantzuna;
+					$.ajax(
+					{
+						url: 'bezero.php',
+						type:'GET',
+						dataType: 'text',
+						data: {'eposta' : $('#eposta').val()},
+						success: function(data)
+						{
+							epostaBalio=data;
+							$('#mezuak').empty();
+							if(epostaBalio.localeCompare("false")==0){
+								$('<p style="color:red;">Eposta WS irakasgaian matrikulatua egon behar da</p>').appendTo('#mezuak');
+							}
+							else{
+								$('<p>Eposta erregistratua dago</p>').appendTo('#mezuak');
+							}
 							konprobatu();
 						}
-					});				
+					});		
+								
 				});
 				
 				$("#password1").change(function (){
-					$.ajax({
-						url : "",
-						dataType : 'php',
-						data : "",
-						cache : false,
-						complete : function(erantzuna) {
-							passBalio = erantzuna;
+					$.ajax(
+					{
+						url: 'bezero.php',
+						type:'GET',
+						dataType: 'text',
+						data: {'pasahitza' : $('#password1').val()},
+						success: function(data)
+						{
+							passBalio=data;
+							$('#mezuak').empty();
+							if(passBalio.localeCompare("false")==0){
+								$('<p style="color:red;">Pasahitza baliozkoa izan behar da</p>').appendTo('#mezuak');
+							}
+							else if(passBalio.localeCompare("true")==0){
+								$('<p>Pasahitza baliozkoa da</p>').appendTo('#mezuak');
+							}
+							else{
+								$('<p style="color:red;">ZERBITZURIK GABE</p>').appendTo('#mezuak');
+							}
 							konprobatu();
 						}
 					});				
@@ -107,6 +129,7 @@
 				<input name="submit" type="submit" id="submit" value="Submit" disabled="disabled"/>
 				<input name="reset" type="reset" id="reset" value="Reset"/><br>
 	</form>
+	<div id="mezuak"></div>
 </fieldset>
     </section>
 	<footer class='main' id='f1'>
