@@ -85,9 +85,7 @@
 	require_once('../lib/class.wsdlcache.php');
 
 	$soapclient = new nusoap_client('http://ehusw.es/rosa/webZerbitzuak/egiaztatuMatrikula.php?wsdl', true);
-
-	
-	
+	$soapclient2 = new nusoap_client('egiaztatuPasahitza.php?wsdl', true);
 	
 	include 'dbConfig.php';
 	$niremysqli = new mysqli($zerbitzaria,$erabiltzailea,$gakoa,$db) or die ("Error while connecting");
@@ -147,7 +145,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$erroreak[]= "Ws-an erregistratuta egon behar duzu";
 		}
 		
-		
+		$erantzuna2 = $soapclient2->call('egiaztatuPass',array( 'x'=>$_POST['password1']));
+		echo "Eran: ".$erantzuna2;
+		if(strcmp("BALIOGABEA", strval($erantzuna))!=0){
+			$erroreak[]= "Pasahitza baliozkoa izan behar da";
+		}		
 		
 		if( count($erroreak) > 0 ){
             echo "<p>ERROREAK EGON DIRA:</p>";
