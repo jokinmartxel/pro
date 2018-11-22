@@ -33,7 +33,45 @@
 
 				$("#argazkia").click(function(){
 					$('#gehiIrudi').remove();
-				});		
+				});
+
+				var epostaBalio="false";
+				var passBalio="false";
+				
+				$("#eposta").change(function (){
+					$.ajax({
+						url : "",
+						dataType : 'php',
+						data : "",
+						cache : false,
+						complete : function(erantzuna) {
+							epostaBalio=erantzuna;
+							konprobatu();
+						}
+					});				
+				});
+				
+				$("#password1").change(function (){
+					$.ajax({
+						url : "",
+						dataType : 'php',
+						data : "",
+						cache : false,
+						complete : function(erantzuna) {
+							passBalio = erantzuna;
+							konprobatu();
+						}
+					});				
+				});
+				
+				function konprobatu(){
+					if((epostaBalio.localeCompare("true")==0) && (passBalio.localeCompare("true")==0)){
+						$('#submit').removeAttr('disabled');
+					}
+					else{
+						$('#submit').attr('disabled','disabled');
+					}
+				}
 			
 			});
 			
@@ -66,7 +104,7 @@
 				Password(*)<input id="password1" name="password1" type="password" size="25" required /><br>
 				Password(*)<input id="password2" name="password2" type="password" size="25" required /><br>
 				Argazkia<input type="file" name="argazkia" id="argazkia"><br><br>
-				<input name="submit" type="submit" id="submit" value="Submit"/>
+				<input name="submit" type="submit" id="submit" value="Submit" disabled="disabled"/>
 				<input name="reset" type="reset" id="reset" value="Reset"/><br>
 	</form>
 </fieldset>
@@ -80,12 +118,8 @@
 
 <?php
 
-	//nusoap.php klasea gehitzen dugu
-	require_once('../lib/nusoap.php');
-	require_once('../lib/class.wsdlcache.php');
-
-	$soapclient = new nusoap_client('http://ehusw.es/rosa/webZerbitzuak/egiaztatuMatrikula.php?wsdl', true);
-	$soapclient2 = new nusoap_client('egiaztatuPasahitza.php?wsdl', true);
+	
+	
 	
 	include 'dbConfig.php';
 	$niremysqli = new mysqli($zerbitzaria,$erabiltzailea,$gakoa,$db) or die ("Error while connecting");
@@ -138,18 +172,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if(strcmp(strval($pasahitza1), strval($pasahitza2))!=0){
 			$erroreak[]= "Pasahitzak berdinak izan behar dira";
 		}
-		
-		$erantzuna = $soapclient->call('egiaztatuE',array( 'x'=>$_POST['eposta']));
-		
-		if(strcmp("BAI", strval($erantzuna))!=0){
-			$erroreak[]= "Ws-an erregistratuta egon behar duzu";
-		}
-		
-		$erantzuna2 = $soapclient2->call('egiaztatuPass',array( 'x'=>$_POST['password1']));
-		echo "Eran: ".$erantzuna2;
-		if(strcmp("BALIOGABEA", strval($erantzuna))!=0){
-			$erroreak[]= "Pasahitza baliozkoa izan behar da";
-		}		
 		
 		if( count($erroreak) > 0 ){
             echo "<p>ERROREAK EGON DIRA:</p>";
