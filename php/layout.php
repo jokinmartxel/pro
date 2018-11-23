@@ -32,6 +32,7 @@
 		<span><a href='showXMLQuenstions.php' style="display:none;" id="xmlQP">XML galderak (PHP)</a></span>
 		<span><a href='../xml/questionsTransAuto.xml' style="display:none;" id="xmlTA">XML transfAuto</a></span>
 		<span><a href='handlingQuizesAJAX.php' style="display:none;" id="xmlHQ">handlingQuizesAJAX</a></span>
+		<span><a href='bezeroGaldera.php' style="display:none;" id="bezGal">BezeroGaldera</a></span>
 	</nav>
     <section class="main" id="s1">
     
@@ -65,7 +66,7 @@ if (isset ($_GET['op'])){
 		echo "<script> $('#xmlQP').css('display', 'block');</script>";
 		echo "<script> $('#xmlTA').css('display', 'block');</script>";
 		echo "<script> $('#xmlHQ').css('display', 'block');</script>";
-		
+		echo "<script> $('#bezGal').css('display', 'block');</script>";
 		
 		$eposta = strval($_GET['eposta']);
 
@@ -93,7 +94,9 @@ if (isset ($_GET['op'])){
 		$xmlH = strval($xmlH);
 		echo "<script> $('#xmlHQ').attr('href', '". $xmlH . "')</script>";
 		
-
+		$bez = "bezeroGaldera.php?op=logeatua&eposta=" . $eposta;
+		$bez = strval($bez);
+		echo "<script> $('#bezGal').attr('href', '". $bez . "')</script>";
 
 		
 		//<span class="right" id="login"><a href="./php/logIn.php">LogIn</a> </span>
@@ -108,7 +111,7 @@ if (isset ($_GET['op'])){
 	else {if ($_GET['op'] == 'erreg'){
 		echo "<script> $('#display').replaceWith('Ongi etorria! Ondo erregistratu zara.');</script>";
 	}else{
-		header ('location: layout.php?op=ezlogeatua' );
+		header ('location: layout.php' );
 	}
 	}
 }
