@@ -14,7 +14,7 @@ if(isset ($_GET['eposta'])){
 }
 if(isset($_GET['pasahitza'])){
 	$result = "true";
-	$soapclient2 = new nusoap_client('http://localhost/ws18/pro/php/egiaztatuPasahitza.php?wsdl', true);
+	$soapclient2 = new nusoap_client('http://localhost/pro/php/egiaztatuPasahitza.php?wsdl', true);
 	$erantzuna2 = $soapclient2->call('egiaztatuPass',array( 'x'=>$_GET['pasahitza'], 'y' => 1010));
 	if(strcmp("BALIOGABEA", strval($erantzuna2))==0){
 		$result = "false";
