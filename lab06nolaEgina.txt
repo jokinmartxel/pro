@@ -1,0 +1,30 @@
+1. Hautazkoa
+
+Ataza hau burutzeko lehendabizi getQuestionWZ.php fitxategia prestatu dugu. Bertan funtzio berri bat erregistratu
+dugu galdDatuakBueltatu izenekoa. Parametro bakarra jasotzen du, int bat eta strings osaturiko array bat bueltatzen du
+emaila, galdera eta erantzun zuzenarekin orden honetan. Id (int) hori pasata datu basean bilatzen du eta id hori duen 
+galderaren ezaugarriak bueltatzen ditu array batean. 
+Bezero bezala bezeroGaldera.php sortu da. Bertan formulario bat gehitu da non id bat pasata guk sorturiko web zerbitzutik 
+datuak atzitu eta pantailaratzen dituen.
+
+
+
+2. Hautazkoa
+
+Ataza hau burutzeko credits.php fitxategia web zerbitzu bezero bezala erabili da. Geolokalizazio web zerbitzua ip_api 
+web aplikazioa erabili da http://ip-api.com/. Dei bat egiten da parametrorik pasa gabe eta berak json baten bitartez hainbat 
+parametro bueltatzen dizkigu (lurraldea, herria, posta, latitudea, ...). Guk bakarrik hiria, regioa, lurraldea, latitudea eta
+longitudea jaso ditugu. Datu horiek gero bistaratu ditugu.
+Baita ere mapa batean bistaratu dugu lekua(latitudea eta longitudea pasaz). Horretarako https://leafletjs.com/ erabili da 
+Google Api ordainekoa delako. Mapa bat sortzen du parametro horiek pasata.
+
+
+--------
+IRAKURRI
+--------
+Arazo bat sortu da geolokalizazio apiarekin. credits.php fitxategia kargatzerako garaian geolokalizazio apiaren script-a 
+ez segurua bezala markatzen du eta ez du script-a exekutatzen. Chromen exekutatzea lortu dugu pausu hauek jarraituz:
+Behin credits.php fitxategia kargatuta url-a agertzen den tokian eskubialdean eskudu moduko bat agertzen da. Bertan klik eginez
+"cargar scripts no seguros" agertzen da. Hor klik eginez geolokalizazioa altibatuko da eta 2. hautazkoan egin beharrekoa ikusi
+ahalko da.
+
