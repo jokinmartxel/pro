@@ -57,25 +57,50 @@ if (isset ($_POST['eposta'])){
 	$niremysqli = new mysqli($zerbitzaria,$erabiltzailea,$gakoa,$db) or die ("Error while connecting");
 	$usr_pass = $_POST['password'];
 	$sql = "select * from erabiltzaileak where eposta='$usr_mail' and pasahitza='$usr_pass'";
+	$sql1 = "select Egoera from erabiltzaileak where eposta='$usr_mail' and pasahitza='$usr_pass'";
+	$sql2 = "select Rola from erabiltzaileak where eposta='$usr_mail' and pasahitza='$usr_pass'";
+	
 	$result = $niremysqli->query($sql);
 	if(! ($result)) {echo 'Error in the query'. $result->error;}
 		else{
 			$rows_cnt = $result->num_rows;
-			$niremysqli->close();
+
 			if ($rows_cnt == 1) {
 				$rows_cnt = 0;
 				
-				// eguneratu logeatu dauden erabiltzaileak
-				$xml = simplexml_load_file('../xml/counter.xml');
+				$result1 = $niremysqli->query($sql1);
+				$row = mysqli_fetch_assoc($result1);
 				
-				if ($xml === false) {
-					echo "Errorea XML fitxategia kargatzerakoan\n";
-					foreach(libxml_get_errors() as $error) {
-						echo "\t", $error->message;
+				if (strcmp($row['Egoera'], "aktibo") == 0) {
+					// eguneratu logeatu dauden erabiltzaileak
+					$xml = simplexml_load_file('../xml/counter.xml');
+					
+					if ($xml === false) {
+						echo "Errorea XML fitxategia kargatzerakoan\n";
+						foreach(libxml_get_errors() as $error) {
+							echo "\t", $error->message;
+						}
+					}else{
+						$xml->kont[0] = $xml->kont[0] + 1;
+						$xml->asXML('../xml/counter.xml');
+					}
+
+					// sesioa hasi
+					$result2 = $niremysqli->query($sql2);
+					$row2 = mysqli_fetch_assoc($result2);
+					session_start();
+					$_SESSION['eposta']=$usr_mail;
+					$_SESSION['rola']=$row2['Rola'];
+						
+					if(strcmp($_SESSION['rola'], "ikaslea")==0){
+						echo "<script> alert('Acces granted ikaslea')</script>";
+						echo('<script>location.href="handlingQuizesAJAX.php" </script>');
+					}else{
+						echo "<script> alert('Acces granted admin')</script>";
+						echo('<script>location.href="handlingAccounts.php" </script>');
 					}
 				}else{
-					$xml->kont[0] = $xml->kont[0] + 1;
-					$xml->asXML('../xml/counter.xml');
+					echo "<script> alert('Blokeatuta zaude logeatzeko')</script>";
 				}
 				
 				
@@ -83,13 +108,13 @@ if (isset ($_POST['eposta'])){
 				
 				
 				
-				echo "<script> alert('Acces granted')</script>";
-				echo('<script>location.href="layout.php?op=logeatua&eposta='.$usr_mail.'" </script>');
+				
+				
 				
 			}
 			else{ echo "<script> alert('Autentifikazio errorea')</script>";}
 		}
-	
+		$niremysqli->close();
 
 }
 ?>
