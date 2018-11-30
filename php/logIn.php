@@ -42,6 +42,7 @@
 						<input name="login" type="submit" id="login" value="Login"/>
 			</form><br>
 	</fieldset>
+	<a href="pasahitzaErrek.php">Pasahitza ahaztu duzu?</a>
 	</div>
     </section>
 	<footer class='main' id='f1'>
@@ -56,17 +57,21 @@ if (isset ($_POST['eposta'])){
 	include 'dbConfig.php';
 	$niremysqli = new mysqli($zerbitzaria,$erabiltzailea,$gakoa,$db) or die ("Error while connecting");
 	$usr_pass = $_POST['password'];
-	$sql = "select * from erabiltzaileak where eposta='$usr_mail' and pasahitza='$usr_pass'";
-	$sql1 = "select Egoera from erabiltzaileak where eposta='$usr_mail' and pasahitza='$usr_pass'";
-	$sql2 = "select Rola from erabiltzaileak where eposta='$usr_mail' and pasahitza='$usr_pass'";
+	$sql = "select Pasahitza from erabiltzaileak where eposta='$usr_mail' ";
+	$sql1 = "select Egoera from erabiltzaileak where eposta='$usr_mail' ";
+	$sql2 = "select Rola from erabiltzaileak where eposta='$usr_mail' ";
 	
 	$result = $niremysqli->query($sql);
+	$pasa = mysqli_fetch_assoc($result);
+	$pasahitzaDB = $pasa['Pasahitza'];
+	
+	//echo $pasahitzaDB;
 	if(! ($result)) {echo 'Error in the query'. $result->error;}
 		else{
 			$rows_cnt = $result->num_rows;
 
-			if ($rows_cnt == 1) {
-				$rows_cnt = 0;
+			if (password_verify($usr_pass, $pasahitzaDB)) {
+				
 				
 				$result1 = $niremysqli->query($sql1);
 				$row = mysqli_fetch_assoc($result1);

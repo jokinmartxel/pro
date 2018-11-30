@@ -126,6 +126,8 @@
 				Password(*)<input id="password1" name="password1" type="password" size="25" required /><br>
 				Password(*)<input id="password2" name="password2" type="password" size="25" required /><br>
 				Argazkia<input type="file" name="argazkia" id="argazkia"><br><br>
+				Segurtasun galdera(*)<input id="sgaldera" name="sgaldera" type="text" size="50" required /><br>
+				Erantzuna(*)<input id="erantzuna" name="erantzuna" type="text" size="50" required /><br>
 				<input name="submit" type="submit" id="submit" value="Submit" disabled="disabled"/>
 				<input name="reset" type="reset" id="reset" value="Reset"/><br>
 	</form>
@@ -166,7 +168,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$deitura = $_POST['deitura'];
 		$pasahitza1 = $_POST['password1'];
 		$pasahitza2 = $_POST['password2'];
-		
+		$sgaldera = $_POST['sgaldera'];
+		$erantzuna = $_POST['erantzuna'];
 		
 		//eposta balidatu
 		if (!balidatuBeharrez($eposta)){
@@ -224,8 +227,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			else{
 				$rows = $result -> num_rows;
 				if($rows==0){
-					if($_FILES['argazkia']['name']!="") $sql1 = "INSERT INTO erabiltzaileak (Eposta, Deitura, Pasahitza, Argazkia) VALUES ('$eposta', '$deitura', '$pasahitza1', '$path_berria')";
-					else $sql1 = "INSERT INTO erabiltzaileak (Eposta, Deitura, Pasahitza, Argazkia) VALUES ('$eposta', '$deitura', '$pasahitza1', null)";
+					$pasahitzEnk = password_hash($pasahitza1, PASSWORD_DEFAULT);
+					if($_FILES['argazkia']['name']!="") $sql1 = "INSERT INTO erabiltzaileak (Eposta, Deitura, Pasahitza, Argazkia, Rola, Egoera, SGaldera, Erantzuna) VALUES ('$eposta', '$deitura', '$pasahitzEnk', '$path_berria', 'ikaslea', 'aktibo', '$sgaldera', '$erantzuna')";
+					else $sql1 = "INSERT INTO erabiltzaileak (Eposta, Deitura, Pasahitza, Argazkia, Rola, Egoera, SGaldera, Erantzuna) VALUES ('$eposta', '$deitura', '$pasahitzEnk', null, 'ikaslea', 'aktibo', '$sgaldera', '$erantzuna')";
 					$ema= mysqli_query($niremysqli, $sql1);
 					if(!$ema){
 						echo("Errorea query-a gauzatzerakoan: ". mysqli_error($niremysqli));
@@ -234,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					else{
 						//echo('DATUAK ONDO GORDE DIRA</br></br>');
 						//header ('location: layout.php?op=erreg' );
-						echo('<script>location.href="layout.php?op=erreg"</script>');
+						echo('<script>location.href="layout.php"</script>');
 					}
 				}
 				else{

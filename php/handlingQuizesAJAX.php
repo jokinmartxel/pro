@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset ($_SESSION['eposta'])){
+	header ('location: layout.php' );
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -22,7 +31,7 @@
 		}
 		// javascript
 		function datuakEskatu(){
-			xhro.open("GET","showXMLMyQuestions.php?eposta=<?php echo $_GET['eposta']?>");
+			xhro.open("GET","showXMLMyQuestions.php");
 			xhro.send(null);
 		}
 			
@@ -39,7 +48,7 @@
 				data : param,
 				cache : false,
 				complete : function() {
-					$('#gald').load("showXMLMyQuestions.php?eposta=<?php echo $_GET['eposta']?>");
+					$('#gald').load("showXMLMyQuestions.php");
 				}
 			});
 			$('#galdetegia')[0].reset();
@@ -48,12 +57,12 @@
 		setInterval(nireaGalderak, 20000);
 		function nireaGalderak() {
 			$.ajax({
-				url : "nireGalderaKop.php?eposta=<?php echo $_GET['eposta']?>",
+				url : "nireGalderaKop.php",
 				dataType : 'php',
 				data : "",
 				cache : false,
 				complete : function() {
-					$('#galdKop').load("nireGalderaKop.php?eposta=<?php echo $_GET['eposta']?>");
+					$('#galdKop').load("nireGalderaKop.php");
 				}
 			});
 		}
@@ -124,9 +133,10 @@
 include "dbConfig.php";
 $niremysqli = new mysqli($zerbitzaria,$erabiltzailea,$gakoa,$db);
 
-if (isset ($_GET['op'])){
+
+
+if (isset ($_SESSION['eposta'])){
 	//logeatua dago
-	if ($_GET['op'] == 'logeatua'){
 		echo "<script> $('#login').css('display', 'none');</script>";
 		echo "<script> $('#signup').css('display', 'none');</script>";
 		echo "<script> $('#logout').css('display', 'block');</script>";
@@ -140,26 +150,26 @@ if (isset ($_GET['op'])){
 		echo "<script> $('#xmlHQ').css('display', 'block');</script>";
 		
 		
-		$eposta = strval($_GET['eposta']);
+		$eposta = strval($_SESSION['eposta']);
 		echo "<script> $('#eposta').attr('value', '" . $eposta . "');</script>";
 		
-		$addq = "addQuestionwithImage.php?op=logeatua&eposta=" . $eposta;
+		$addq = "addQuestionwithImage.php";
 		$addq = strval($addq) ;
 		echo "<script> $('#addQ').attr('href', '". $addq . "')</script>";
 		
-		$lay = "layout.php?op=logeatua&eposta=" . $eposta;
+		$lay = "layout.php";
 		$lay = strval($lay);
 		echo "<script> $('#layout').attr('href', '". $lay . "')</script>";
 		
-		$showq = "showQuestionswithImages.php?op=logeatua&eposta=" . $eposta;
+		$showq = "showQuestionswithImages.php";
 		$showq = strval($showq);
 		echo "<script> $('#showQ').attr('href', '". $showq . "')</script>";
 		
-		$cred = "credits.php?op=logeatua&eposta=" . $eposta;
+		$cred = "credits.php";
 		$cred = strval($cred);
 		echo "<script> $('#cred').attr('href', '". $cred . "')</script>";
 		
-		$xmlq = "showXMLQuenstions.php?op=logeatua&eposta=" . $eposta;
+		$xmlq = "showXMLQuenstions.php";
 		$xmlq = strval($xmlq);
 		echo "<script> $('#xmlQP').attr('href', '". $xmlq . "')</script>";	
 
@@ -172,6 +182,6 @@ if (isset ($_GET['op'])){
 		$row = mysqli_fetch_assoc($res);
 		$arg = $row['Argazkia'];	
 		if($row['Argazkia']!="") echo "<script> $('#logout').prepend('<img src=".$arg." width=20 height=20 />');</script>";
-	}
+	
 }
 ?>

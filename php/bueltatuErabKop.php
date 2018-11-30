@@ -12,4 +12,4 @@ if ($xml === false) {
 	echo "Logeatuta dauden erabiltzaile kopurua: " . $xml->kont[0];
 }
 
-?>
+?>	

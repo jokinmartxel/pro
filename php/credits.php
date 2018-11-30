@@ -92,18 +92,7 @@
 
 
 <?php 
-if (isset ($_GET['op'])){
-	//logeatua dago
-	if ($_GET['op'] == 'logeatua'){
-		
-		$eposta = strval($_GET['eposta']);
-				
-		$home = "layout.php?op=logeatua&eposta=" . $eposta;
-		$home = strval($home);
-		echo "<script> $('#home').attr('href', '". $home . "')</script>";
-				
-	}else{
-		header ('location: layout.php?op=ezlogeatua' );
-	}
-}
+$home = "layout.php";
+$home = strval($home);
+echo "<script> $('#home').attr('href', '". $home . "')</script>";
 ?>

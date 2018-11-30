@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+if (isset ($_SESSION['eposta'])){
+	if (strcmp($_SESSION['rola'],"admin")==0){
+		// administratzailea
+		header ('location: layout.php' );
+	}
+}else{
+	// logeatu gabe
+	header ('location: layout.php' );
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -86,27 +101,43 @@
 
 <?php
 
-if (isset ($_GET['op'])){
-	//logeatua dago
-	if ($_GET['op'] == 'logeatua'){
-		$eposta = $_GET['eposta'];
-		$eposta = strval($eposta);
-		echo "<script> $('#eposta').attr('value', '" . $eposta . "');</script>";
+// if (isset ($_GET['op'])){
+	// //logeatua dago
+	// if ($_GET['op'] == 'logeatua'){
+		// $eposta = $_GET['eposta'];
+		// $eposta = strval($eposta);
+		// echo "<script> $('#eposta').attr('value', '" . $eposta . "');</script>";
 		
-		$lay = "layout.php?op=logeatua&eposta=" . $eposta;
-		$lay = strval($lay);
-		echo "<script> $('#home').attr('href', '". $lay . "')</script>";
+		// $lay = "layout.php?op=logeatua&eposta=" . $eposta;
+		// $lay = strval($lay);
+		// echo "<script> $('#home').attr('href', '". $lay . "')</script>";
 		
 		
-		$action = "addQuestionwithImage.php?op=logeatua&eposta=" . $eposta;
-		$action = strval($action);
-		echo "<script> $('#galdetegia').attr('action', '". $action . "')</script>";
+		// $action = "addQuestionwithImage.php?op=logeatua&eposta=" . $eposta;
+		// $action = strval($action);
+		// echo "<script> $('#galdetegia').attr('action', '". $action . "')</script>";
 		
 
 
-	}
+	// }
+// }
+
+
+if (isset($_SESSION['eposta'])){
+	// logeatuta
+	$eposta = $_SESSION['eposta'];
+	$eposta = strval($eposta);
+	echo "<script> $('#eposta').attr('value', '" . $eposta . "');</script>";
+	
+	$lay = "layout.php";
+	$lay = strval($lay);
+	echo "<script> $('#home').attr('href', '". $lay . "')</script>";
+	
+	
+	$action = "addQuestionwithImage.php";
+	$action = strval($action);
+	echo "<script> $('#galdetegia').attr('action', '". $action . "')</script>";
 }
-
 
 include "dbConfig.php";
 $niremysqli = new mysqli($zerbitzaria,$erabiltzailea,$gakoa,$db);
