@@ -1,7 +1,13 @@
 <?php
 session_start();
 
-if (!isset ($_SESSION['eposta'])){
+if (isset ($_SESSION['eposta'])){
+	if (strcmp($_SESSION['rola'],"admin")==0){
+		// administratzailea
+		header ('location: layout.php' );
+	}
+}else{
+	// logeatu gabe
 	header ('location: layout.php' );
 }
 ?>
