@@ -1,0 +1,12 @@
+HAUTAZKOA 1
+
+Pasahitza enkriptatzeko, erregistratzeko garaian datu basean gorde baino lehen password_hash() funtzioa erabili dugu.
+Logina egiterakoan sartutako pasahitza password_verfify() funtzioarekin datu basean dagoen pasahitz enkriptatuarekin
+berifikatzen da.
+
+
+HAUTAZKOA 2
+Pasahitza errekuperatzeko erregistro garaian segurtasun galdera bat gehitu dugu erantzunarekin.
+Login atalean dagoen link baten bidez (Pasahitza ahaztu duzu?), orri berri batera iritsiko gara.
+Bertan eposta sartuz, segurtasun galdera erantzutera bidaliko du. Erantzuna zuzena bada pasahitz
+berria sartzeko aukera egongo da. 
