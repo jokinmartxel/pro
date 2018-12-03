@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -93,7 +97,7 @@ if (isset ($_POST['eposta'])){
 					// sesioa hasi
 					$result2 = $niremysqli->query($sql2);
 					$row2 = mysqli_fetch_assoc($result2);
-					session_start();
+					
 					$_SESSION['eposta']=$usr_mail;
 					$_SESSION['rola']=$row2['Rola'];
 						

@@ -113,7 +113,7 @@ if (isset ($_SESSION['eposta'])){
 	
 				<input type="button" id="showB" name="showB" value="Show me my questions" onclick="datuakEskatu()" />
 				<input type="button" id="addB" name="addB" value="Add question" onclick="datuakGehitu()" /><br>
-				Eposta(*)<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]{3,}[0-9]{3}@ikasle.ehu.eus" title="pro000@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required /><br><br>
+				Eposta(*)<input id="eposta" name="eposta" type="text" pattern="[a-zA-Z]{3,}[0-9]{3}@ikasle.ehu.eus" title="pro000@ikasle.ehu.eus" size="25" placeholder="proba000@ikasle.ehu.eus" autofocus required readonly /><br><br>
 				Galdera(*)<input id="galdera" name="galdera" type="text" size="50" required /><br>
 				Erantzun zuzena(*)<input id="zuzena" name="zuzena" type="text" size="25" required /><br>
 				Erantzun okerra 1(*)<input id="okerra1" name="okerra1" type="text" size="25" required /><br>
