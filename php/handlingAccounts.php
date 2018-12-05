@@ -7,6 +7,8 @@ if (isset ($_SESSION['rola'])){
 		header ('location: layout.php' );
 
 	}
+}else{
+	header ('location: layout.php' );
 }
 ?>
 
