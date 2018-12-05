@@ -99,14 +99,9 @@ if (isset ($_SESSION['eposta'])){
     </header>
 	<nav class='main' id='n1' role='navigation'>
 		<span><a href='layout.php' id="layout">Home</a></span>
-		<span><a href='/quizzes'>Quizzes</a></span>
+		<span id="spanQuiz"><a href='/quizzes'>Quizzes</a></span>
 		<span><a href='credits.php' id="cred">Credits</a></span>
-		<span><a href='addQuestionwithImages.php' style="display:none;" id="addQ">Galdera gehitu</a></span> 
-		<span><a href='showQuestionswithImages.php' style="display:none;" id="showQ">Galderak ikusi</a></span>
-		<span><a href='../xml/questions.xml' style="display:none;" id="xmlQ">XML galderak</a></span>
-		<span><a href='showXMLQuenstions.php' style="display:none;" id="xmlQP">XML galderak (PHP)</a></span>
-		<span><a href='../xml/questionsTransAuto.xml' style="display:none;" id="xmlTA">XML transfAuto</a></span>
-		<span><a href='handlingQuizesAJAX.php' style="display:none;" id="xmlHQ">handlingQuizesAJAX</a></span>
+		<span id="span"></span>
 	</nav>
     <section class="main" id="s1">
 	<form id="galdetegia" enctype="multipart/form-data">
@@ -148,12 +143,6 @@ if (isset ($_SESSION['eposta'])){
 		echo "<script> $('#logout').css('display', 'block');</script>";
 
 		
-		echo "<script> $('#addQ').css('display', 'block');</script>";
-		echo "<script> $('#showQ').css('display', 'block');</script>";
-		echo "<script> $('#xmlQ').css('display', 'block');</script>";
-		echo "<script> $('#xmlQP').css('display', 'block');</script>";
-		echo "<script> $('#xmlTA').css('display', 'block');</script>";
-		echo "<script> $('#xmlHQ').css('display', 'block');</script>";
 		
 		
 		$eposta = strval($_SESSION['eposta']);
@@ -188,6 +177,12 @@ if (isset ($_SESSION['eposta'])){
 		$row = mysqli_fetch_assoc($res);
 		$arg = $row['Argazkia'];	
 		if($row['Argazkia']!="") echo "<script> $('#logout').prepend('<img src=".$arg." width=20 height=20 />');</script>";
+	
+	
+
+		$url = "handlingQuizesAJAX.php";
+		echo "<script> $('#span').append('<a href=".$url.">Handling Quizzes</a>'); </script>";
+		echo "<script> $('#spanQuiz').remove(); </script>";
 	
 }
 ?>

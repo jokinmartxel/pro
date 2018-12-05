@@ -30,8 +30,9 @@ session_start();
     </header>
 	<nav class='main' id='n1' role='navigation'>
 		<span><a href='layout.php' id="layout">Home</a></span>
-		<span><a href='/quizzes'>Quizzes</a></span>
+		<span id="spanQuiz"><a href='quizzes.php'>Quizzes</a></span>
 		<span><a href='credits.php' id="cred">Credits</a></span>
+		<!-- 
 		<span><a href='addQuestionwithImages.php' style="display:none;" id="addQ">Galdera gehitu</a></span> 
 		<span><a href='showQuestionswithImages.php' style="display:none;" id="showQ">Galderak ikusi</a></span>
 		<span><a href='../xml/questions.xml' style="display:none;" id="xmlQ">XML galderak</a></span>
@@ -39,6 +40,10 @@ session_start();
 		<span><a href='../xml/questionsTransAuto.xml' style="display:none;" id="xmlTA">XML transfAuto</a></span>
 		<span><a href='handlingQuizesAJAX.php' style="display:none;" id="xmlHQ">handlingQuizesAJAX</a></span>
 		<span><a href='bezeroGaldera.php' style="display:none;" id="bezGal">BezeroGaldera</a></span>
+		-->
+		<span id="span"></span>
+
+		
 	</nav>
     <section class="main" id="s1">
     
@@ -58,69 +63,6 @@ session_start();
 include "dbConfig.php";
 $niremysqli = new mysqli($zerbitzaria,$erabiltzailea,$gakoa,$db);
 
-// if (isset ($_GET['op'])){
-	// //logeatua dago
-	// if ($_GET['op'] == 'logeatua'){
-		// echo "<script> $('#login').css('display', 'none');</script>";
-		// echo "<script> $('#signup').css('display', 'none');</script>";
-		// echo "<script> $('#logout').css('display', 'block');</script>";
-		// echo "<script> $('#display').replaceWith('Ongi etorria! Logeatuta zaude.');</script>";
-		
-		// echo "<script> $('#addQ').css('display', 'block');</script>";
-		// echo "<script> $('#showQ').css('display', 'block');</script>";
-		// echo "<script> $('#xmlQ').css('display', 'block');</script>";
-		// echo "<script> $('#xmlQP').css('display', 'block');</script>";
-		// echo "<script> $('#xmlTA').css('display', 'block');</script>";
-		// echo "<script> $('#xmlHQ').css('display', 'block');</script>";
-		// echo "<script> $('#bezGal').css('display', 'block');</script>";
-		
-		// $eposta = strval($_GET['eposta']);
-
-		// $addq = "addQuestionwithImage.php?op=logeatua&eposta=" . $eposta;
-		// $addq = strval($addq) ;
-		// echo "<script> $('#addQ').attr('href', '". $addq . "')</script>";
-		
-		// $lay = "layout.php?op=logeatua&eposta=" . $eposta;
-		// $lay = strval($lay);
-		// echo "<script> $('#layout').attr('href', '". $lay . "')</script>";
-		
-		// $showq = "showQuestionswithImages.php?op=logeatua&eposta=" . $eposta;
-		// $showq = strval($showq);
-		// echo "<script> $('#showQ').attr('href', '". $showq . "')</script>";
-		
-		// $cred = "credits.php?op=logeatua&eposta=" . $eposta;
-		// $cred = strval($cred);
-		// echo "<script> $('#cred').attr('href', '". $cred . "')</script>";
-		
-		// $xmlq = "showXMLQuenstions.php?op=logeatua&eposta=" . $eposta;
-		// $xmlq = strval($xmlq);
-		// echo "<script> $('#xmlQP').attr('href', '". $xmlq . "')</script>";	
-
-		// $xmlH = "handlingQuizesAJAX.php?op=logeatua&eposta=" . $eposta;
-		// $xmlH = strval($xmlH);
-		// echo "<script> $('#xmlHQ').attr('href', '". $xmlH . "')</script>";
-		
-		// $bez = "bezeroGaldera.php?op=logeatua&eposta=" . $eposta;
-		// $bez = strval($bez);
-		// echo "<script> $('#bezGal').attr('href', '". $bez . "')</script>";
-
-		
-		// //<span class="right" id="login"><a href="./php/logIn.php">LogIn</a> </span>
-		// echo "<script> $('#logout').prepend('<span>".$eposta." <span>');</script>";
-		
-		// $sql = "SELECT * FROM erabiltzaileak WHERE Eposta='$eposta'";
-		// $res = mysqli_query($niremysqli, $sql);
-		// $row = mysqli_fetch_assoc($res);
-		// $arg = $row['Argazkia'];	
-		// if($row['Argazkia']!="") echo "<script> $('#logout').prepend('<img src=".$arg." width=20 height=20 />');</script>";
-	// }
-	// else {if ($_GET['op'] == 'erreg'){
-		// echo "<script> $('#display').replaceWith('Ongi etorria! Ondo erregistratu zara.');</script>";
-	// }else{
-		// header ('location: layout.php' );
-	// }
-	// }
-// }
 
 
 if (isset ($_SESSION['eposta'])){
@@ -131,36 +73,36 @@ if (isset ($_SESSION['eposta'])){
 	echo "<script> $('#logout').css('display', 'block');</script>";
 
 	
-	echo "<script> $('#addQ').css('display', 'block');</script>";
-	echo "<script> $('#showQ').css('display', 'block');</script>";
-	echo "<script> $('#xmlQ').css('display', 'block');</script>";
-	echo "<script> $('#xmlQP').css('display', 'block');</script>";
-	echo "<script> $('#xmlTA').css('display', 'block');</script>";
-	echo "<script> $('#xmlHQ').css('display', 'block');</script>";
+	// echo "<script> $('#addQ').css('display', 'block');</script>";
+	// echo "<script> $('#showQ').css('display', 'block');</script>";
+	// echo "<script> $('#xmlQ').css('display', 'block');</script>";
+	// echo "<script> $('#xmlQP').css('display', 'block');</script>";
+	// echo "<script> $('#xmlTA').css('display', 'block');</script>";
+	// echo "<script> $('#xmlHQ').css('display', 'block');</script>";
 	
 	
 	$eposta = strval($_SESSION['eposta']);
 	echo "<script> $('#eposta').attr('value', '" . $eposta . "');</script>";
 	
-	$addq = "addQuestionwithImage.php";
-	$addq = strval($addq) ;
-	echo "<script> $('#addQ').attr('href', '". $addq . "')</script>";
+	// $addq = "addQuestionwithImage.php";
+	// $addq = strval($addq) ;
+	// echo "<script> $('#addQ').attr('href', '". $addq . "')</script>";
 	
-	$lay = "layout.php";
-	$lay = strval($lay);
-	echo "<script> $('#layout').attr('href', '". $lay . "')</script>";
+	// $lay = "layout.php";
+	// $lay = strval($lay);
+	// echo "<script> $('#layout').attr('href', '". $lay . "')</script>";
 	
-	$showq = "showQuestionswithImages.php";
-	$showq = strval($showq);
-	echo "<script> $('#showQ').attr('href', '". $showq . "')</script>";
+	// $showq = "showQuestionswithImages.php";
+	// $showq = strval($showq);
+	// echo "<script> $('#showQ').attr('href', '". $showq . "')</script>";
 	
-	$cred = "credits.php";
-	$cred = strval($cred);
-	echo "<script> $('#cred').attr('href', '". $cred . "')</script>";
+	// $cred = "credits.php";
+	// $cred = strval($cred);
+	// echo "<script> $('#cred').attr('href', '". $cred . "')</script>";
 	
-	$xmlq = "showXMLQuenstions.php";
-	$xmlq = strval($xmlq);
-	echo "<script> $('#xmlQP').attr('href', '". $xmlq . "')</script>";	
+	// $xmlq = "showXMLQuenstions.php";
+	// $xmlq = strval($xmlq);
+	// echo "<script> $('#xmlQP').attr('href', '". $xmlq . "')</script>";	
 
 	
 	//<span class="right" id="login"><a href="./php/logIn.php">LogIn</a> </span>
@@ -174,9 +116,22 @@ if (isset ($_SESSION['eposta'])){
 	
 	
 	if (strcmp($_SESSION['rola'], "admin")==0){
-		echo "<script> $('#addQ').css('display', 'none');</script>";
-		echo "<script> $('#xmlHQ').css('display', 'none');</script>";
+		$url = "handlingAccounts.php";
+		echo "<script> $('#span').append('<a href=".$url.">Handling Accounts</a>'); </script>";
+		echo "<script> $('#spanQuiz').remove(); </script>";
+		
+	}	
+	if (strcmp($_SESSION['rola'], "ikaslea")==0){
+		$url = "handlingQuizesAJAX.php";
+		echo "<script> $('#span').append('<a href=".$url.">Handling Accounts</a>'); </script>";
+		
+		
+		echo "<script> $('#spanQuiz').remove(); </script>";
+		
+		
+		
 	}
+	
 }
 
 ?>
