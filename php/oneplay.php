@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+include "dbConfig.php";
+global $niremysqli;
 ?>
 
 <!DOCTYPE html>
@@ -12,11 +15,25 @@ session_start();
 	<script language="javascript">
 		function konprobatu(){
 			if (($('input[name="erantzunak"]:checked').val()).localeCompare(zuzena)){
-				alert("Erantzun Zuzena");
-				
+				alert("Erantzun Okerra");				
 			}else{
-				alert("Erantzun Okerra");
+				alert("Erantzun Zuzena");
 			}
+			
+			var option = confirm("Galdera gustatu zaizu?");
+			if (option == true){
+				var param = "id='" + id + "'&gustatu=bai";
+				$.ajax({
+					url : "eguneratuGald.php",
+					dataType : '',
+					data : param,
+					cache : false,
+										
+				});
+			}else{
+				
+			}
+						
 			var option = confirm("Beste galdera bat nahi duzu?");
 			if (option == true){
 				location.href="oneplay.php";				
@@ -53,16 +70,17 @@ session_start();
 include "dbConfig.php";
 global $niremysqli;
 
+
 $sql = "SELECT * FROM questions ORDER BY RAND()";
 $res = mysqli_query($niremysqli, $sql); 
 
 if (mysqli_num_rows($res) > 0) {
-	
-
-	
+	galderaBete($res);
+}else{
+	echo "<script> alert('Ez daude galderarik');</script>";
 }
 
-else{ echo "Ez dago lerrorik";}
+
 if (!$res){	echo("Errorea query-a gauzatzerakoan: ". mysqli_error($niremysqli));}
 
 
@@ -77,28 +95,67 @@ mysqli_close($niremysqli);
 
 
 function galderaBete($res){
-	$row = mysqli_fetch_assoc($res);
-	$galdera = $row['Galdera'];	
-	$zuzena = $row['Zuzena'];	
-	$okerra1 = $row['Okerra1'];	
-	$okerra2 = $row['Okerra2'];	
-	$okerra3 = $row['Okerra3'];		
-	echo "<script> $('#galdera').attr('value', '".$galdera."');</script>";
-	echo "<script> $('#bat').attr('value', '".$okerra1."');</script>";
-	echo "<script> $('#galdera').prepend('".$okerra1."');</script>";
+	if ($res == null){
+		echo "<script> alert('Galdera guztiak erantzun dituzu');</script>";
+	}else{
+		$row = mysqli_fetch_assoc($res);
+		if ($row== null){
+			echo "<script> alert('Galdera guztiak erantzun dituzu');</script>";
+			echo "<script> location.href='layout.php';</script>";
+		}else{
+			$galdera = $row['Galdera'];	
+			$zuzena = $row['Zuzena'];	
+			$okerra1 = $row['Okerra1'];	
+			$okerra2 = $row['Okerra2'];	
+			$okerra3 = $row['Okerra3'];
+			$id = $row['Id'];
+			$_SESSION['gId'] = $id;
+			if (in_array($id, $_SESSION['erabiliak'])){
+				galderaBete($res);
+			}else{
+				$_SESSION['erabiliak'][]= $id; 
+				
+				echo "<script> $('#galdera').attr('value', '".$galdera."');</script>";
+				echo "<script> $('#bat').attr('value', '".$okerra1."');</script>";
+				echo "<script> $('#galdera').prepend('".$okerra1."');</script>";
 
-		
-	
-	echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$zuzena."'>".$zuzena." <br/> ".'"'.");</script>";
-	echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra1."'>".$okerra1." <br/> ".'"'.");</script>";
-	echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra2."'>".$okerra2." <br/> ".'"'.");</script>";
-	echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra3."'>".$okerra3." <br/> ".'"'.");</script>";
-	echo "<script> var zuzena = '".$zuzena."';</script>";
-	
-	$arg = $row['Irudia'];	
-		if($row['Irudia']!="") echo "<script> $('#erantz').after('<img src=".$arg." width=100  />');</script>";
-	
-	
+					
+				$rand = rand(0,3);
+				switch ($rand){
+					case 0: 
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$zuzena."'>".$zuzena." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra1."'>".$okerra1." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra2."'>".$okerra2." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra3."'>".$okerra3." <br/> ".'"'.");</script>";
+						break;
+					case 1: 
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra1."'>".$okerra1." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$zuzena."'>".$zuzena." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra2."'>".$okerra2." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra3."'>".$okerra3." <br/> ".'"'.");</script>";
+						break;
+					case 2: 
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra1."'>".$okerra1." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra2."'>".$okerra2." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$zuzena."'>".$zuzena." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra3."'>".$okerra3." <br/> ".'"'.");</script>";
+						break;
+					case 3: 
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra1."'>".$okerra1." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra2."'>".$okerra2." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$okerra3."'>".$okerra3." <br/> ".'"'.");</script>";
+						echo "<script> $('#erantz').append(".'"'."<input type='radio' id='bat' name='erantzunak' value='".$zuzena."'>".$zuzena." <br/> ".'"'.");</script>";
+						break;
+				}
+							
+				echo "<script> var zuzena = '".$zuzena."';</script>";
+				echo "<script> var id = '".$id."';</script>";
+				
+				$arg = $row['Irudia'];	
+				if($row['Irudia']!="") echo "<script> $('#erantz').after('<img src=".$arg." width=100  />');</script>";
+			}
+		}
+	}	
 }
 
 ?>

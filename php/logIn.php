@@ -27,7 +27,7 @@ session_start();
     </header>
 	<nav class='main' id='n1' role='navigation'>
 		<span><a href='layout.php'>Home</a></span>
-		<span><a href='../quizzes'>Quizzes</a></span>
+		<span><a href='quizzes.php'>Quizzes</a></span>
 		<span><a href='credits.php'>Credits</a></span>
 		<!-- <span><a href='addQuestion.html'>Galdera gehitu 4</a></span> -->
 		<!--<span><a href='addQuestion5.html'>Galdera gehitu 5</a></span> -->
