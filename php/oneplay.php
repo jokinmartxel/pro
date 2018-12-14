@@ -80,7 +80,6 @@ global $niremysqli;
 
 $sql = "SELECT * FROM questions ORDER BY RAND()";
 $res = mysqli_query($niremysqli, $sql); 
-
 if (mysqli_num_rows($res) > 0) {
 	galderaBete($res);
 }else{
@@ -117,8 +116,11 @@ function galderaBete($res){
 			$okerra3 = $row['Okerra3'];
 			$id = $row['Id'];
 			$_SESSION['gId'] = $id;
+			if (!isset ($_SESSION['erabiliak'])){
+				$_SESSION['erabiliak'] = [];
+			}
 			if (in_array($id, $_SESSION['erabiliak'])){
-				galderaBete($res);
+					galderaBete($res);
 			}else{
 				$_SESSION['erabiliak'][]= $id; 
 				

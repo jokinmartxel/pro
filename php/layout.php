@@ -1,8 +1,8 @@
 ﻿<?php
 
 session_start();
-// $_SESSION['erabiliak'];
-$_SESSION['erabiliak'] = [];
+//$_SESSION['erabiliak'];
+// $_SESSION['erabiliak'] = [];
 
 ?>
 
