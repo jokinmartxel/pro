@@ -31,7 +31,14 @@ global $niremysqli;
 										
 				});
 			}else{
-				
+				var param = "id='" + id + "'&gustatu=ez";
+				$.ajax({
+					url : "eguneratuGald.php",
+					dataType : '',
+					data : param,
+					cache : false,
+										
+				});
 			}
 						
 			var option = confirm("Beste galdera bat nahi duzu?");

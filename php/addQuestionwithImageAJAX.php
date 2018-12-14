@@ -117,8 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			}
 		}
 		
-		if($_FILES['irudia']['name']!="") $sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_GET[eposta]' , '$_GET[galdera]' , '$_GET[zuzena]' , '$_GET[okerra1]' , '$_GET[okerra2]' , '$_GET[okerra3]' , '$_GET[zailtasuna]' , '$_GET[gaia]' , '$path_berria')";
-		else $sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia) VALUES(DEFAULT, '$_GET[eposta]' , '$_GET[galdera]' , '$_GET[zuzena]' , '$_GET[okerra1]' , '$_GET[okerra2]' , '$_GET[okerra3]' , '$_GET[zailtasuna]' , '$_GET[gaia]' , null)";
+		if($_FILES['irudia']['name']!="") $sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia, Balorazioa) VALUES(DEFAULT, '$_GET[eposta]' , '$_GET[galdera]' , '$_GET[zuzena]' , '$_GET[okerra1]' , '$_GET[okerra2]' , '$_GET[okerra3]' , '$_GET[zailtasuna]' , '$_GET[gaia]' , '$path_berria', 0)";
+		else $sql = "INSERT INTO questions (Id, Email, Galdera, Zuzena, Okerra1, Okerra2, Okerra3, Zailtasuna, Gaia, Irudia, Balorazioa) VALUES(DEFAULT, '$_GET[eposta]' , '$_GET[galdera]' , '$_GET[zuzena]' , '$_GET[okerra1]' , '$_GET[okerra2]' , '$_GET[okerra3]' , '$_GET[zailtasuna]' , '$_GET[gaia]' , null, 0)";
 		$ema= mysqli_query($niremysqli, $sql);
 
 		if(!$ema){
