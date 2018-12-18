@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +19,5 @@ session_start();
 <a href='layout.php' id="layout">ETXERA</a><br/><br/>
 <button onclick="location.href='oneplay.php'">OnePlay</button>
 <button onclick="location.href='playingbs.php'">Playing by subject</button>
-<button onclick="location.href='top10.php'">Top 10</button>
 </body>
 </html>

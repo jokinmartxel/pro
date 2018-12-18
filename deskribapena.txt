@@ -1,0 +1,21 @@
+--------
+ONE PLAY
+--------
+oneplay.php (https://ws18t15.000webhostapp.com/php/oneplay.php) fitxategian inplementatuta. Quizzes ataletik
+"Oneplay" botoia sakatuz iritsi daiteke. Galdera bat ausaz aurkezteko datu basetik select bat egiten da ORDER BY RAND()
+gehituz. Horrela galderen selecta egiten da modu aleatorioan. Sesio berean galderak ez errepikatzeko SESSION aldagaian
+erakutsitako galderen id-a gordetzen dugu. Beraz horrela, soilik erakutsi ez diren galderak agertzen dira.
+Galdera erantzun ostean mezu bat agertzen da galdera gustatzen den edo ez agertuz. Gustatu bada, datu basean galdera 
+horren balorazioari bat gehituko zaio, bestela bat kendu. Hau lortzeko ajax bidez php fitategi bati deitu diogu, 
+eguneratuGald.php fitxategia. Bertan galderaren id-a eta gustatu ala ez adierazita galderaren balorazioa eguneratzen
+du. 
+
+
+------------------
+PLAYING BY SUBJECT
+------------------
+playingbs.php (https://ws18t15.000webhostapp.com/php/playingbs.php) fitxategian inplementatuta. Quizzes ataletik
+"Playing by subject" botoia sakatuz iritsi daiteke. Select baten bidez datu basean dauden galderen gaiak agertuko dira
+errepikatu gabe. Hori egiteko select egiteko gaiaran "GROUP BY Gaia" gehitu dugu. Behin gaia aukeratuta gai horren
+hiru galdera egonez gero erakusten dira. Galderak erakusteko ajax bidez egin da. AJax prozesuak "hirugaldera.php" fitxategiari
+deia egiten dio gaia pasata eta fitxategiak gai horren hiru ausazko galdera bueltatzen ditu. 
